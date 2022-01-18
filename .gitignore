@@ -1,0 +1,4 @@
+.env
+dump.rdb
+.idea
+__pycache__
