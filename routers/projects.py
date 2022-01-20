@@ -59,4 +59,15 @@ async def update_prject(project_name: str, project: UpdateProject, mawoka_auth_h
         if update_dict[i] is None:
             update_dict.pop(i)
     res = await col("projects").find_one_and_update({"name": project_name, "owner": user.email}, {"$set": update_dict})
+    if res is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
     return BaseProject(**res)
+
+@router.delete("/delete/{project_name}")
+async def delete_project(project_name: str, mawoka_auth_header: Optional[str] = Header(None)):
+    user = await get_user_from_header(mawoka_auth_header)
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication credentials")
+    if (await col("projects").delete_one({"name": project_name, "owner": user.email})).deleted_count == 0:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
+

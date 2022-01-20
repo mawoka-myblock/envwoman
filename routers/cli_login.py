@@ -26,3 +26,14 @@ async def get_token(token: str):
     await col("users").update_one({"_id": ObjectId(redis_res.decode('utf-8'))},
                                   {"$addToSet": {"api_keys": api_key}})
     return api_key
+
+
+@router.get("/test-key/{key}", response_class=PlainTextResponse)
+async def test_token(key: str):
+    """
+    Test if a key is valid.
+    """
+    user = await get_user_from_header(key)
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid key")
+
