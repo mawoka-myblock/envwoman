@@ -1,0 +1,891 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 debug pnpm:package-manifest": {
+    "initial": {
+      "name": "website",
+      "version": "0.0.1",
+      "scripts": {
+        "dev": "svelte-kit dev",
+        "build": "svelte-kit build",
+        "package": "svelte-kit package",
+        "preview": "svelte-kit preview",
+        "lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. .",
+        "format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. ."
+      },
+      "devDependencies": {
+        "@sveltejs/adapter-auto": "next",
+        "@sveltejs/kit": "next",
+        "prettier": "^2.4.1",
+        "prettier-plugin-svelte": "^2.4.0",
+        "svelte": "^3.44.0"
+      },
+      "type": "module",
+      "dependencies": {
+        "@fontsource/fira-mono": "^4.5.0",
+        "@lukeed/uuid": "^2.0.0",
+        "cookie": "^0.4.1"
+      }
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "2 debug pnpm:context": {
+    "currentLockfileExists": false,
+    "storeDir": "/home/mawoka/.pnpm-store/v3",
+    "virtualStoreDir": "/home/mawoka/PycharmProjects/envwoman/website/node_modules/.pnpm"
+  },
+  "3 debug pnpm:stage": {
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "stage": "resolution_started"
+  },
+  "4 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/prettier-plugin-svelte/2.6.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "prettier-plugin-svelte",
+      "rawSpec": "^2.4.0"
+    }
+  },
+  "5 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/prettier-plugin-svelte/2.6.0",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "6 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/cookie/0.4.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "cookie",
+      "rawSpec": "^0.4.1"
+    }
+  },
+  "7 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/cookie/0.4.1",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "8 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/prettier-plugin-svelte/2.6.0",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "9 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/cookie/0.4.1",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "10 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/prettier/2.5.1",
+    "wanted": {
+      "dependentId": ".",
+      "name": "prettier",
+      "rawSpec": "^2.4.1"
+    }
+  },
+  "11 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/prettier/2.5.1",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "12 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/prettier/2.5.1",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "13 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/svelte/3.46.2",
+    "wanted": {
+      "dependentId": ".",
+      "name": "svelte",
+      "rawSpec": "^3.44.0"
+    }
+  },
+  "14 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/svelte/3.46.2",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "15 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@sveltejs/adapter-auto/1.0.0-next.13",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@sveltejs/adapter-auto",
+      "rawSpec": "next"
+    }
+  },
+  "16 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@sveltejs/adapter-auto/1.0.0-next.13",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "17 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@fontsource/fira-mono/4.5.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@fontsource/fira-mono",
+      "rawSpec": "^4.5.0"
+    }
+  },
+  "18 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@fontsource/fira-mono/4.5.0",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "19 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/svelte/3.46.2",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "20 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@sveltejs/adapter-auto/1.0.0-next.13",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "21 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@fontsource/fira-mono/4.5.0",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "22 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@sveltejs/kit/1.0.0-next.235",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@sveltejs/kit",
+      "rawSpec": "next"
+    }
+  },
+  "23 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@sveltejs/kit/1.0.0-next.235",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "24 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@sveltejs/kit/1.0.0-next.235",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "25 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@lukeed/uuid/2.0.0",
+    "wanted": {
+      "dependentId": ".",
+      "name": "@lukeed/uuid",
+      "rawSpec": "^2.0.0"
+    }
+  },
+  "26 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@lukeed/uuid/2.0.0",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "27 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@sveltejs/adapter-netlify/1.0.0-next.41",
+    "wanted": {
+      "dependentId": "/@sveltejs/adapter-auto/1.0.0-next.13",
+      "name": "@sveltejs/adapter-netlify",
+      "rawSpec": "1.0.0-next.41"
+    }
+  },
+  "28 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@sveltejs/adapter-netlify/1.0.0-next.41",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "29 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@sveltejs/adapter-vercel/1.0.0-next.39",
+    "wanted": {
+      "dependentId": "/@sveltejs/adapter-auto/1.0.0-next.13",
+      "name": "@sveltejs/adapter-vercel",
+      "rawSpec": "1.0.0-next.39"
+    }
+  },
+  "30 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@sveltejs/adapter-vercel/1.0.0-next.39",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "31 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@sveltejs/adapter-cloudflare/1.0.0-next.8",
+    "wanted": {
+      "dependentId": "/@sveltejs/adapter-auto/1.0.0-next.13",
+      "name": "@sveltejs/adapter-cloudflare",
+      "rawSpec": "1.0.0-next.8"
+    }
+  },
+  "32 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@sveltejs/adapter-cloudflare/1.0.0-next.8",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "33 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@lukeed/uuid/2.0.0",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "34 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/sade/1.8.1",
+    "wanted": {
+      "dependentId": "/@sveltejs/kit/1.0.0-next.235",
+      "name": "sade",
+      "rawSpec": "^1.7.4"
+    }
+  },
+  "35 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/sade/1.8.1",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "36 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/sade/1.8.1",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "37 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/tiny-glob/0.2.9",
+    "wanted": {
+      "dependentId": "/@sveltejs/adapter-netlify/1.0.0-next.41",
+      "name": "tiny-glob",
+      "rawSpec": "^0.2.9"
+    }
+  },
+  "38 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/tiny-glob/0.2.9",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "39 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/tiny-glob/0.2.9",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "40 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild/0.13.15",
+    "wanted": {
+      "dependentId": "/@sveltejs/adapter-netlify/1.0.0-next.41",
+      "name": "esbuild",
+      "rawSpec": "^0.13.15"
+    }
+  },
+  "41 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "42 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild/0.13.15",
+    "wanted": {
+      "dependentId": "/@sveltejs/adapter-vercel/1.0.0-next.39",
+      "name": "esbuild",
+      "rawSpec": "^0.13.15"
+    }
+  },
+  "43 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild/0.13.15",
+    "wanted": {
+      "dependentId": "/@sveltejs/adapter-cloudflare/1.0.0-next.8",
+      "name": "esbuild",
+      "rawSpec": "^0.13.15"
+    }
+  },
+  "44 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@iarna/toml/2.2.5",
+    "wanted": {
+      "dependentId": "/@sveltejs/adapter-netlify/1.0.0-next.41",
+      "name": "@iarna/toml",
+      "rawSpec": "^2.2.5"
+    }
+  },
+  "45 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@iarna/toml/2.2.5",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "46 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "47 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-android-arm64/0.13.15: wanted {\"cpu\":[\"arm64\"],\"os\":[\"android\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "48 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-android-arm64/0.13.15: wanted {\"cpu\":[\"arm64\"],\"os\":[\"android\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-android-arm64/0.13.15",
+      "name": "esbuild-android-arm64",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "49 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-android-arm64/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-android-arm64",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "50 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-android-arm64/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "51 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-darwin-64/0.13.15: wanted {\"cpu\":[\"x64\"],\"os\":[\"darwin\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "52 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-darwin-64/0.13.15: wanted {\"cpu\":[\"x64\"],\"os\":[\"darwin\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-darwin-64/0.13.15",
+      "name": "esbuild-darwin-64",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "53 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-darwin-64/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-darwin-64",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "54 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-darwin-64/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "55 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-darwin-arm64/0.13.15: wanted {\"cpu\":[\"arm64\"],\"os\":[\"darwin\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "56 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-darwin-arm64/0.13.15: wanted {\"cpu\":[\"arm64\"],\"os\":[\"darwin\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-darwin-arm64/0.13.15",
+      "name": "esbuild-darwin-arm64",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "57 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-darwin-arm64/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-darwin-arm64",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "58 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-darwin-arm64/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "59 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-freebsd-64/0.13.15: wanted {\"cpu\":[\"x64\"],\"os\":[\"freebsd\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "60 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-freebsd-64/0.13.15: wanted {\"cpu\":[\"x64\"],\"os\":[\"freebsd\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-freebsd-64/0.13.15",
+      "name": "esbuild-freebsd-64",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "61 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-freebsd-64/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-freebsd-64",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "62 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-freebsd-64/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "63 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-linux-32/0.13.15: wanted {\"cpu\":[\"ia32\"],\"os\":[\"linux\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "64 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-linux-32/0.13.15: wanted {\"cpu\":[\"ia32\"],\"os\":[\"linux\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-linux-32/0.13.15",
+      "name": "esbuild-linux-32",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "65 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-linux-32/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-linux-32",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "66 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-linux-32/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "67 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-freebsd-arm64/0.13.15: wanted {\"cpu\":[\"arm64\"],\"os\":[\"freebsd\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "68 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-freebsd-arm64/0.13.15: wanted {\"cpu\":[\"arm64\"],\"os\":[\"freebsd\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-freebsd-arm64/0.13.15",
+      "name": "esbuild-freebsd-arm64",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "69 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-freebsd-arm64/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-freebsd-arm64",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "70 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-freebsd-arm64/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "71 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-linux-arm/0.13.15: wanted {\"cpu\":[\"arm\"],\"os\":[\"linux\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "72 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-linux-arm/0.13.15: wanted {\"cpu\":[\"arm\"],\"os\":[\"linux\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-linux-arm/0.13.15",
+      "name": "esbuild-linux-arm",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "73 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-linux-arm/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-linux-arm",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "74 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-linux-arm/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "75 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-linux-64/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-linux-64",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "76 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-linux-64/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "77 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/globalyzer/0.1.0",
+    "wanted": {
+      "dependentId": "/tiny-glob/0.2.9",
+      "name": "globalyzer",
+      "rawSpec": "0.1.0"
+    }
+  },
+  "78 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/globalyzer/0.1.0",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "79 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-linux-arm64/0.13.15: wanted {\"cpu\":[\"arm64\"],\"os\":[\"linux\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "80 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-linux-arm64/0.13.15: wanted {\"cpu\":[\"arm64\"],\"os\":[\"linux\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-linux-arm64/0.13.15",
+      "name": "esbuild-linux-arm64",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "81 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-linux-arm64/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-linux-arm64",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "82 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-linux-arm64/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "83 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-netbsd-64/0.13.15: wanted {\"cpu\":[\"x64\"],\"os\":[\"netbsd\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "84 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-netbsd-64/0.13.15: wanted {\"cpu\":[\"x64\"],\"os\":[\"netbsd\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-netbsd-64/0.13.15",
+      "name": "esbuild-netbsd-64",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "85 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-netbsd-64/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-netbsd-64",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "86 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-netbsd-64/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "87 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-linux-mips64le/0.13.15: wanted {\"cpu\":[\"mips64el\"],\"os\":[\"linux\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "88 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-linux-mips64le/0.13.15: wanted {\"cpu\":[\"mips64el\"],\"os\":[\"linux\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-linux-mips64le/0.13.15",
+      "name": "esbuild-linux-mips64le",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "89 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-linux-mips64le/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-linux-mips64le",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "90 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-linux-mips64le/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "91 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-openbsd-64/0.13.15: wanted {\"cpu\":[\"x64\"],\"os\":[\"openbsd\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "92 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-openbsd-64/0.13.15: wanted {\"cpu\":[\"x64\"],\"os\":[\"openbsd\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-openbsd-64/0.13.15",
+      "name": "esbuild-openbsd-64",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "93 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-openbsd-64/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-openbsd-64",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "94 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-openbsd-64/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "95 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-sunos-64/0.13.15: wanted {\"cpu\":[\"x64\"],\"os\":[\"sunos\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "96 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-sunos-64/0.13.15: wanted {\"cpu\":[\"x64\"],\"os\":[\"sunos\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-sunos-64/0.13.15",
+      "name": "esbuild-sunos-64",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "97 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-sunos-64/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-sunos-64",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "98 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-sunos-64/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "99 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-linux-ppc64le/0.13.15: wanted {\"cpu\":[\"ppc64\"],\"os\":[\"linux\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "100 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-linux-ppc64le/0.13.15: wanted {\"cpu\":[\"ppc64\"],\"os\":[\"linux\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-linux-ppc64le/0.13.15",
+      "name": "esbuild-linux-ppc64le",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "101 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-linux-ppc64le/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-linux-ppc64le",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "102 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-linux-ppc64le/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "103 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-windows-32/0.13.15: wanted {\"cpu\":[\"ia32\"],\"os\":[\"win32\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "104 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-windows-32/0.13.15: wanted {\"cpu\":[\"ia32\"],\"os\":[\"win32\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-windows-32/0.13.15",
+      "name": "esbuild-windows-32",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "105 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-windows-32/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-windows-32",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "106 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-windows-32/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "107 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/@lukeed/csprng/1.0.1",
+    "wanted": {
+      "dependentId": "/@lukeed/uuid/2.0.0",
+      "name": "@lukeed/csprng",
+      "rawSpec": "^1.0.0"
+    }
+  },
+  "108 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@lukeed/csprng/1.0.1",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "109 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-windows-64/0.13.15: wanted {\"cpu\":[\"x64\"],\"os\":[\"win32\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "110 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-windows-64/0.13.15: wanted {\"cpu\":[\"x64\"],\"os\":[\"win32\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-windows-64/0.13.15",
+      "name": "esbuild-windows-64",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "111 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-windows-64/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-windows-64",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "112 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-windows-64/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "113 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@iarna/toml/2.2.5",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "114 debug pnpm:fetching-progress": {
+    "attempt": 1,
+    "packageId": "registry.npmjs.org/@sveltejs/adapter-netlify/1.0.0-next.41",
+    "size": 104878,
+    "status": "started"
+  },
+  "115 warn pnpm:install-check": {
+    "message": "Unsupported platform for registry.npmjs.org/esbuild-windows-arm64/0.13.15: wanted {\"cpu\":[\"arm64\"],\"os\":[\"win32\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "116 debug pnpm:skipped-optional-dependency": {
+    "details": "Error: Unsupported platform for registry.npmjs.org/esbuild-windows-arm64/0.13.15: wanted {\"cpu\":[\"arm64\"],\"os\":[\"win32\"]} (current: {\"os\":\"linux\",\"cpu\":\"x64\"})",
+    "package": {
+      "id": "registry.npmjs.org/esbuild-windows-arm64/0.13.15",
+      "name": "esbuild-windows-arm64",
+      "version": "0.13.15"
+    },
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website",
+    "reason": "unsupported_platform"
+  },
+  "117 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/esbuild-windows-arm64/0.13.15",
+    "wanted": {
+      "dependentId": "/esbuild/0.13.15",
+      "name": "esbuild-windows-arm64",
+      "rawSpec": "0.13.15"
+    }
+  },
+  "118 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-windows-arm64/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "119 debug pnpm:fetching-progress": {
+    "attempt": 1,
+    "packageId": "registry.npmjs.org/@sveltejs/adapter-cloudflare/1.0.0-next.8",
+    "size": 3523,
+    "status": "started"
+  },
+  "120 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/esbuild-linux-64/0.13.15",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "121 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/globalyzer/0.1.0",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "122 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/vite/2.7.13",
+    "wanted": {
+      "dependentId": "/@sveltejs/kit/1.0.0-next.235",
+      "name": "vite",
+      "rawSpec": "^2.7.2"
+    }
+  },
+  "123 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/vite/2.7.13",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "124 debug pnpm:_dependency_resolved": {
+    "resolution": "registry.npmjs.org/globrex/0.1.2",
+    "wanted": {
+      "dependentId": "/tiny-glob/0.2.9",
+      "name": "globrex",
+      "rawSpec": "^0.1.2"
+    }
+  },
+  "125 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/globrex/0.1.2",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "resolved"
+  },
+  "126 debug pnpm:fetching-progress": {
+    "attempt": 1,
+    "packageId": "registry.npmjs.org/@sveltejs/adapter-vercel/1.0.0-next.39",
+    "size": 2741,
+    "status": "started"
+  },
+  "127 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@sveltejs/adapter-cloudflare/1.0.0-next.8",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "fetched"
+  },
+  "128 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/vite/2.7.13",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "129 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/globrex/0.1.2",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "found_in_store"
+  },
+  "130 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@sveltejs/adapter-vercel/1.0.0-next.39",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "fetched"
+  },
+  "131 debug pnpm:progress": {
+    "packageId": "registry.npmjs.org/@sveltejs/adapter-netlify/1.0.0-next.41",
+    "requester": "/home/mawoka/PycharmProjects/envwoman/website",
+    "status": "fetched"
+  },
+  "132 warn pnpm:install-check": {
+    "message": "Unsupported engine for registry.npmjs.org/@sveltejs/vite-plugin-svelte/1.0.0-next.34: wanted: {\"node\":\"^14.13.1 || >= 16\"} (current: {\"node\":\"v15.14.0\",\"pnpm\":\"6.26.0\"})",
+    "prefix": "/home/mawoka/PycharmProjects/envwoman/website"
+  },
+  "133 error pnpm": {
+    "code": "ERR_PNPM_UNSUPPORTED_ENGINE",
+    "packageId": "registry.npmjs.org/@sveltejs/vite-plugin-svelte/1.0.0-next.34",
+    "wanted": {
+      "node": "^14.13.1 || >= 16"
+    },
+    "current": {
+      "node": "v15.14.0",
+      "pnpm": "6.26.0"
+    },
+    "pkgsStack": [
+      {
+        "id": "registry.npmjs.org/@sveltejs/kit/1.0.0-next.235",
+        "name": "@sveltejs/kit",
+        "version": "1.0.0-next.235"
+      }
+    ],
+    "err": {
+      "name": "pnpm",
+      "message": "Unsupported engine for registry.npmjs.org/@sveltejs/vite-plugin-svelte/1.0.0-next.34: wanted: {\"node\":\"^14.13.1 || >= 16\"} (current: {\"node\":\"v15.14.0\",\"pnpm\":\"6.26.0\"})",
+      "code": "ERR_PNPM_UNSUPPORTED_ENGINE",
+      "stack": "pnpm: Unsupported engine for registry.npmjs.org/@sveltejs/vite-plugin-svelte/1.0.0-next.34: wanted: {\"node\":\"^14.13.1 || >= 16\"} (current: {\"node\":\"v15.14.0\",\"pnpm\":\"6.26.0\"})\n    at checkEngine (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.26.0/node_modules/pnpm/dist/pnpm.cjs:41186:16)\n    at checkPackage (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.26.0/node_modules/pnpm/dist/pnpm.cjs:43274:104)\n    at packageIsInstallable (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.26.0/node_modules/pnpm/dist/pnpm.cjs:43244:20)\n    at resolveAndFetch (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.26.0/node_modules/pnpm/dist/pnpm.cjs:71818:117)\n    at processTicksAndRejections (node:internal/process/task_queues:94:5)\n    at async resolveDependency (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.26.0/node_modules/pnpm/dist/pnpm.cjs:115554:23)\n    at async resolveDependenciesOfDependency (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.26.0/node_modules/pnpm/dist/pnpm.cjs:115389:39)\n    at async Promise.all (index 0)\n    at async resolveDependencies (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.26.0/node_modules/pnpm/dist/pnpm.cjs:115356:29)\n    at async resolveChildren (/usr/pnpm-global/5/node_modules/.pnpm/pnpm@6.26.0/node_modules/pnpm/dist/pnpm.cjs:115421:24)"
+    }
+  }
+}

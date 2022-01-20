@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import aiohttp
 from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from fastapi.responses import RedirectResponse, PlainTextResponse, JSONResponse
 from helpers.security.verify import send_mail
