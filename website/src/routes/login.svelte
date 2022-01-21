@@ -4,16 +4,13 @@
 	import tippy from 'sveltejs-tippy';
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/env';
-	let feedback = '';
 	let loggedInSuccessfully = false;
 	let loginData = {
 		password1: '',
-		password2: '',
 		email: ''
 	};
 	let valid = {
 		password1: false,
-		password2: false,
 		email: false
 	};
 	let hcaptchaSitekey = 'ee81b2a1-acf3-4d20-b2a4-a7ea94c7eba5';
@@ -40,22 +37,22 @@
 		}
 	});
 
-	let passwdstrength;
 	let submitLoading = false;
 	let modalMessage = '';
-	let modalOpen = false;
+	let ErrorModalOpen = false;
+	let SuccessModalOpen = false;
+	let SuccessModalCode = '';
 
 	const login = async () => {
 		const { response } = await hcaptcha.execute(hcaptchaWidgetID, {
 			async: true
 		});
 		submitLoading = true;
-		console.log('login');
 		const json_data = {
 			email: loginData.email,
 			password: loginData.password1
 		};
-		const res = await fetch(`/api/v1/users/create`, {
+		const res = await fetch(`/api/v1/users/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -63,24 +60,31 @@
 			},
 			body: JSON.stringify(json_data)
 		});
+        console.log(response)
 		let resp_text = await res.json();
+		console.log(resp_text);
+
 		if (res.status === 200) {
-			modalMessage =
-				'You successfully created your account! You just have to confirm your email-address and install envwoman and you are ready to go!';
-			modalOpen = true;
+			SuccessModalCode = res.body();
+			SuccessModalOpen = true;
 		} else {
 			if (res.status === 400) {
 				if (resp_text['detail'] === 'Invalid captcha') {
 					modalMessage = 'The Captcha was invalid, please try again!';
-				} else if (resp_text['detail'] === 'User already registered') {
-					modalMessage = 'An account with this email-address already exists!';
-					modalOpen = true;
+					ErrorModalOpen = true;
+				} else if (resp_text['detail'] === 'User not verified') {
+					modalMessage = "You didn't confirm your email!";
+					ErrorModalOpen = true;
+				} else if (
+					resp_text['detail'] === 'Wrong password' ||
+					resp_text['detail'] === 'User not found'
+				) {
+					modalMessage = 'Email and/or password is/are wrong!';
+					ErrorModalOpen = true;
 				}
-				modalMessage = 'The good old unexpected error occured! I hope you like it!';
-				modalOpen = true;
 			} else {
 				modalMessage = 'The good old unexpected error occured! I hope you like it!';
-				modalOpen = true;
+				ErrorModalOpen = true;
 			}
 		}
 		submitLoading = false;
@@ -95,8 +99,7 @@
 	};
 
 	$: passwdstrength = getFeedback(loginData.password1);
-	$: valid.password2 = loginData.password1 === loginData.password2 && loginData.password2 !== '';
-	$: valid.password1 = checkPassword(loginData.password1);
+	$: valid.password1 = loginData.password1.length >= 4;
 	let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 	$: valid.email = emailRegex.exec(loginData.email) !== null;
 </script>
@@ -153,18 +156,6 @@
 							bind:value={loginData.password1}
 						/>
 					</label>
-					<p class="text-red-600 w-[15rem]">{passwdstrength}</p>
-
-					<label class="input-group input-group-vertical input-group-l pt-4 text-black">
-						<span>Password</span>
-						<input
-							class:input-error={!valid.password2}
-							type="password"
-							placeholder="Your Password"
-							class="input input-bordered text-black"
-							bind:value={loginData.password2}
-						/>
-					</label>
 					<div
 						id="hcaptcha"
 						class="h-captcha"
@@ -185,12 +176,9 @@
 						class="block w-full bg-gradient-to-r from-mawoka-300 via-mawoka-200 to-mawoka-100 mt-4 py-2 rounded-2xl text-black font-semibold mb-2"
 						disabled={!Object.values(valid).every((v) => v === true)}
 						class:grayscale={!Object.values(valid).every((v) => v === true)}
-						>Register</button
+						>Log In</button
 					>
 				{/if}
-				<span>
-					<p class="text-red-600 ml-2">{feedback}</p>
-				</span>
 				<!-- <span
 					><a href="/account/reset-password" class="text-sm ml-2 hover:text-blue-500 cursor-pointer"
 						>Forgot Password?</a
@@ -206,13 +194,28 @@
 	</div>
 </div>
 
-<div id="my-modal" class="modal" class:modal-open={modalOpen}>
+<div id="my-modal" class="modal" class:modal-open={ErrorModalOpen}>
 	<div class="modal-box">
 		<p class="text-black">{modalMessage}</p>
 		<div class="modal-action">
 			<button
 				on:click={() => {
-					modalOpen = false;
+					ErrorModalOpen = false;
+				}}
+				class="btn btn-primary">Close</button
+			>
+		</div>
+	</div>
+</div>
+
+<div id="my-modal" class="modal" class:modal-open={SuccessModalOpen}>
+	<div class="modal-box">
+		<p class="text-black text-center">Here is your code. This code will last just 5mins.</p>
+		<code class="text-black text-xl text-center select-all">{SuccessModalCode}</code>
+		<div class="modal-action">
+			<button
+				on:click={() => {
+					ErrorModalOpen = false;
 				}}
 				class="btn btn-primary">Close</button
 			>

@@ -29,6 +29,7 @@ class Settings(BaseSettings):
     mail_server: str
     mail_port: int
     secret_key: str
+    hcaptcha_key: str
 
     # access_token_expire_minutes: int = 30
     # cache_expiry: int = 86400

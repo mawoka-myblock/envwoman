@@ -1,4 +1,4 @@
-from typing import Optional, List, Union
+from typing import Optional, List, Union, Dict
 from bson import ObjectId
 from pydantic import Field, validator
 from pydantic import BaseModel as PydanticBaseModel
@@ -54,6 +54,8 @@ class CreateProject(BaseModel):
     members: List[str] = []
     #    date_created: str
     #    date_modified: str
+    environments: List[str] = ["standard"]
+    selected_environment: str = "standard"
     data: str
 
 
@@ -61,12 +63,15 @@ class BaseProject(CreateProject):
     owner: str
     date_created: str
     date_modified: str
+    data: List[Dict[str, str]] = [{"standard": ""}]
 
 
 class UpdateProject(BaseModel):
     members: Optional[List[str]] = None
     description: Optional[str] = None
     data: Optional[str] = None
+    environments: Optional[List[str]] = None
+    selected_environment: Optional[str] = "standard"
 
 
 class ProjectInDB(BaseProject):
