@@ -1,0 +1,34 @@
+[package]
+name = "cli"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+reqwest = { version = "0.11", features = ["json", "cookies"] }
+tokio = { version = "1", features = ["full"] }
+futures = "0.3"
+structopt = { version = "0.3", default-features = false }
+webbrowser = "0.5.5"
+serde = "1.0.133"
+confy = "0.4.0"
+regex = "1"
+dialoguer = "0.9.0"
+serde_json = "1.0.75"
+keyring = "1"
+rpassword = "5.0.1"
+#orion = {veresion="0.17.0", features = ["safe_api"]}
+rand_core = { version = "0.6", features = ["std"] }
+git2 = "0.13.25"
+
+# Encryption-shit
+aes = "0.7.5"
+base64ct = { version = "1.0.1", features = ["alloc"] }
+block-modes = "0.8.1"
+hmac = "0.12.0"
+pbkdf2 = "0.10.0"
+rand = "0.8.4"
+sha2 = "0.10.1"
+magic-crypt = "3.1.9"
+dotenv-parser = "0.1.3"

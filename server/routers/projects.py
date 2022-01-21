@@ -69,15 +69,15 @@ async def update_prject(project_name: str, project: UpdateProject, mawoka_auth_h
     #         "$set": {f"data.{project.selected_environment}": project.data,
     #                  "date_modified": str(datetime.now().replace(microsecond=0).isoformat())}}),
     # ])
-    update = await col("projects").update_one({"name": project_name, "owner": user.email}, {"$set": update_dict})
+    res = await col("projects").find_one_and_update({"name": project_name, "owner": user.email}, {"$set": update_dict})
     update_set = await col("projects").update_one({"name": project_name, "owner": user.email}, {
         "$addToSet": {"environments": project.selected_environment,
                       }})
-    res = await col("projects").find_one_and_update({"name": project_name, "owner": user.email},
-                                                    {"$set": {f"data.$": {project.selected_environment: project.data}},
-                                                     # "date_modified": str(
-                                                     #     datetime.now().replace(microsecond=0).isoformat())
-                                                     })
+    update = await col("projects").update_one({"name": project_name, "owner": user.email},
+                                              {"$set":
+                                                  {"date_modified": str(
+                                                      datetime.now().replace(microsecond=0).isoformat())}
+                                              })
     # res = await col("projects").find_one_and_update({"name": project_name, "owner": user.email},
     #                                                 {"$and": [{"$addToSet": {"data": project.selected_environment}}, {
     #                                                     "$set": {f"data.{project.selected_environment}": project.data}},
@@ -85,6 +85,14 @@ async def update_prject(project_name: str, project: UpdateProject, mawoka_auth_h
     #                                                         "environments": project.selected_environment}}]})
     # res = await col("projects").find_one_and_update({"name": project_name, "owner": user.email},
     # {"$set": update_dict})
+    if project.selected_environment in res["environments"]:
+        res2 = await col("projects").update_one(
+            {"name": project_name, "owner": user.email, f"data.{project.selected_environment}": {"$exists": True}},
+            {"$set": {"data.$": {project.selected_environment: project.data}}})
+    else:
+        res2 = await col("projects").update_one(
+            {"name": project_name, "owner": user.email},
+            {"$addToSet": {"data": {project.selected_environment: project.data}}})
     if res is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Project not found")
     return BaseProject(**res)
