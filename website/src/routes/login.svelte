@@ -60,14 +60,13 @@
 			},
 			body: JSON.stringify(json_data)
 		});
-        console.log(response)
-		let resp_text = await res.json();
-		console.log(resp_text);
+		
 
 		if (res.status === 200) {
-			SuccessModalCode = res.body();
+			SuccessModalCode = await res.text();
 			SuccessModalOpen = true;
 		} else {
+			let resp_text = await res.json();
 			if (res.status === 400) {
 				if (resp_text['detail'] === 'Invalid captcha') {
 					modalMessage = 'The Captcha was invalid, please try again!';
@@ -160,7 +159,7 @@
 						id="hcaptcha"
 						class="h-captcha"
 						data-sitekey={hcaptchaSitekey}
-						data-size="invisible"
+						data-size="normal"
 						data-theme="dark"
 					/>
 				</div>
@@ -211,11 +210,12 @@
 <div id="my-modal" class="modal" class:modal-open={SuccessModalOpen}>
 	<div class="modal-box">
 		<p class="text-black text-center">Here is your code. This code will last just 5mins.</p>
-		<code class="text-black text-xl text-center select-all">{SuccessModalCode}</code>
+		<p class="text-center"><code class="text-black text-xl text-center select-all">{SuccessModalCode}</code></p>
+		
 		<div class="modal-action">
 			<button
 				on:click={() => {
-					ErrorModalOpen = false;
+					SuccessModalOpen = false;
 				}}
 				class="btn btn-primary">Close</button
 			>

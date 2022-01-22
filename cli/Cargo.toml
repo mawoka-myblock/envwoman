@@ -1,5 +1,5 @@
 [package]
-name = "cli"
+name = "envwoman"
 version = "0.1.0"
 edition = "2021"
 
@@ -9,7 +9,8 @@ edition = "2021"
 reqwest = { version = "0.11", features = ["json", "cookies"] }
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
-structopt = { version = "0.3", default-features = false }
+clap = { version ="3.0.10", features = ["derive"] }
+colored = "2.0.0"
 webbrowser = "0.5.5"
 serde = "1.0.133"
 confy = "0.4.0"
@@ -24,10 +25,8 @@ git2 = "0.13.25"
 
 # Encryption-shit
 aes = "0.7.5"
-base64ct = { version = "1.0.1", features = ["alloc"] }
 block-modes = "0.8.1"
 hmac = "0.12.0"
-pbkdf2 = "0.10.0"
 rand = "0.8.4"
 sha2 = "0.10.1"
 magic-crypt = "3.1.9"

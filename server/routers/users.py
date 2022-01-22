@@ -61,7 +61,7 @@ async def login(user: BaseUser, h_captcha_response: str = Header(None)):
     :return: The token
     """
     async with aiohttp.ClientSession() as session:
-        async with session.post("https://bin.muetsch.io/abr2yrh",
+        async with session.post("https://hcaptcha.com/siteverify",
                                 data={"response": h_captcha_response, "secret": settings.hcaptcha_key}) as resp:
             data = await resp.json()
             print(h_captcha_response, data, settings.hcaptcha_key)

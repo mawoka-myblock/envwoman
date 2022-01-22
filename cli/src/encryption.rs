@@ -1,16 +1,5 @@
-use std::str;
-
-use aes::Aes256;
-use base64ct::{Base64, Encoding};
-use block_modes::block_padding::Pkcs7;
-use block_modes::{BlockMode, Cbc};
 use confy;
-use hmac::Hmac;
 use magic_crypt::MagicCryptTrait;
-use pbkdf2::pbkdf2;
-use rand::RngCore;
-use sha2::Sha256;
-
 use crate::config;
 
 /*pub fn encrypt_string(to_encrypt: &String) -> Result<String, Box<dyn std::error::Error>> { // verschlüsseln

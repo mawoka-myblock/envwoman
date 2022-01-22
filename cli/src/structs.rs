@@ -1,6 +1,8 @@
+use std::path::PathBuf;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use serde;
+
 
 #[derive(Serialize, Deserialize)]
 pub struct ProjectResponse {
@@ -25,3 +27,13 @@ pub struct ListProjectResponse1 {
     pub date_created: String,
     pub date_modified: String,
 }
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ProjectFile {
+    pub name: String,
+    pub file: Option<PathBuf>,
+    pub description: String,
+    pub environments: Vec<String>,
+    pub selected_environment: String,
+}
+
