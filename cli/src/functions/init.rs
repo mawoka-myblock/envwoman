@@ -16,7 +16,7 @@ pub async fn init(
     description: Option<String>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let cfg: config::Config = confy::load("envwoman")?;
-    let project_name: String;
+
     let mut current_path = env::current_dir()?;
     let repo: Option<Repository> = match Repository::open(&current_path) {
         Ok(repo) => Some(repo),
@@ -28,16 +28,16 @@ pub async fn init(
         return Ok(());
     }
 
-    if name.is_none() {
+    let project_name: String = if name.is_none() {
         let temp = env::current_dir()?.to_str().unwrap().to_string();
         let re = Regex::new(r".*/(.*)").unwrap();
         let re_res = re.captures(&temp).unwrap();
-        project_name = re_res
+        re_res
             .get(1)
-            .map_or("".parse().unwrap(), |m| m.as_str().parse().unwrap());
+            .map_or("".parse().unwrap(), |m| m.as_str().parse().unwrap())
     } else {
-        project_name = name.unwrap().to_string();
-    }
+        name.unwrap().to_string()
+    };
 
     if Confirm::new()
         .with_prompt(
@@ -50,10 +50,10 @@ pub async fn init(
     }
     let description_new: String;
     if description.is_some() {
-        description_new = description.unwrap().to_string();
+        description_new = description.unwrap();
     } else if Confirm::new().with_prompt("Do you want to add a description to your project?").interact()? {
         let mut buffer = String::new();
-        let mut stdin = io::stdin();
+        let stdin = io::stdin();
         stdin.read_line(&mut buffer)?;
         description_new = buffer.trim().to_string();
     } else { description_new = "".to_string(); }
@@ -105,12 +105,12 @@ pub async fn init(
 
 
 
-    let current_env_new: String;
-    if current_env.is_none() {
-        current_env_new = "".to_string();
+
+    let current_env_new: String = if current_env.is_none() {
+        "".to_string()
     } else {
-        current_env_new = current_env.unwrap();
-    }
+        current_env.unwrap()
+    };
 
     let data_to_send: CreateProject = CreateProject {
         name: String::from(&config_data.name),

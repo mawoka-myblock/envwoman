@@ -41,7 +41,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let body = resp.text().await?;
         println!("{}", body);
         let mut modified_cfg = cfg;
-        modified_cfg.api_key = body.into();
+        modified_cfg.api_key = body;
         modified_cfg.salt = rand::thread_rng()
             .sample_iter(&Alphanumeric)
             .take(16)
@@ -63,7 +63,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         println!("Passwords do not match");
         return Ok(());
     }
-    let entry = keyring::Entry::new(&service, &username);
+    let entry = keyring::Entry::new(service, username);
     entry.set_password(&password)?;
 
     Ok(())

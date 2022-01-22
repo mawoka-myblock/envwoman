@@ -1,13 +1,6 @@
-use serde_json;
-use std::env;
-use std::fs::File;
 use std::path::{PathBuf};
-use std::{fs};
-use dotenv_parser::parse_dotenv;
 mod functions;
-use git2::{BranchType, Repository};
 use clap::{self, Parser};
-use tokio;
 
 
 pub mod config;
@@ -28,7 +21,10 @@ pub enum Command {
     #[clap(about = "Pull the changes from the server")]
     Pull,
     #[clap(about = "Push the changes to the server")]
-    Push,
+    Push {
+        #[clap(short, long)]
+        no_pull: bool,
+    },
     #[clap(about = "Create a new project")]
     Init {
         #[clap(short, long)]
@@ -71,7 +67,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     return match args {
         Command::Login => functions::login::main().await,
         Command::Pull => functions::pull::pull().await,
-        Command::Push => functions::push::main().await,
+        Command::Push {no_pull} => functions::push::main(no_pull).await,
         Command::Init { name, from_file, description } => functions::init::init(name, from_file, description).await,
         Command::DeleteProject => functions::delete_project::delete_project().await,
         Command::Activate => activate().await,

@@ -1,14 +1,14 @@
 use std::{env, fs};
-use std::collections::HashMap;
 use std::fs::File;
-use git2::{BranchType, Repository};
-use regex::Regex;
+use git2::{Repository};
 use crate::{config, encryption, ProjectFile};
-use crate::functions::pull::pull;
+use crate::functions::{pull::pull, helpers::get_branch};
 use crate::structs::UpdateProject;
 
-pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
-//    pull().await?;
+pub async fn main(no_pull: bool) -> Result<(), Box<dyn std::error::Error>> {
+    if !no_pull {
+        pull().await?;
+    }
     let cfg: config::Config = confy::load("envwoman")?;
     let mut config_file = env::current_dir()?;
     let repo: Option<Repository> = match Repository::open(&config_file) {
@@ -30,17 +30,9 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let data = encryption::encrypt_string(&file_content)?;
 
 
-    let current_branch: String;
-    let mut branches: Vec<String> = Vec::new();
-    if repo.is_some() {
-        current_branch = Regex::new(r"refs/heads/(.*)").unwrap().captures(repo.as_ref().unwrap().head().unwrap().name().unwrap()).unwrap().get(1).unwrap().as_str().to_string();
-        for branch in repo.unwrap().branches(Some(BranchType::Local))? {
-            branches.push(branch.unwrap().0.name().unwrap().map(String::from).unwrap());
-        }
-    } else {
-        branches.push("standard".to_string());
-        current_branch = "standard".to_string();
-    }
+    let temp_res = get_branch(repo).await;
+    let current_branch = temp_res.0;
+    let branches = temp_res.1;
 
     let update_project: UpdateProject = UpdateProject {
         members: None,
@@ -50,7 +42,6 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         data: Option::from(data)
     };
 
-    println!("{:?}", &update_project);
     let res = reqwest::Client::new()
         .post("{api_url}/api/v1/projects/update/{project_name}"
             .replace("{api_url}", &cfg.api_url)
