@@ -1,6 +1,7 @@
 use std::{env, fs};
 use std::fs::File;
 use dialoguer::Confirm;
+use indicatif::ProgressBar;
 use reqwest::Response;
 use crate::{config, ProjectFile};
 
@@ -32,21 +33,27 @@ pub async fn delete_project(force: bool, name: Option<String>) -> Result<(), Box
     }
     let cfg: config::Config = confy::load("envwoman")?;
     if name.as_ref().is_some() {
-        if !Confirm::new().with_prompt(stringify!("Do you want to continue to deltete \"{}\"", &name)).interact()? && !force {
-            return Ok(());
+        if !force {
+            if !Confirm::new().with_prompt(format!("Do you want to continue to delete \"{}\"", name.as_ref().unwrap())).interact()? {
+                return Ok(());
+            }
         }
-        println!("Trying to delete the project \"{}\" from the server...", name.as_ref().unwrap());
+        let progress_bar = ProgressBar::new_spinner();
+        progress_bar.enable_steady_tick(80);
+        progress_bar.set_message(format!("Trying to delete the project \"{}\" from the server...", name.as_ref().unwrap()));
         let resp = delete_req(name.as_ref().unwrap().to_string(), cfg.api_url.clone(), cfg.api_key.clone()).await?;
         if resp.status().is_success() {
-            println!("Project \"{}\" deleted successfully", name.as_ref().unwrap());
+            progress_bar.set_message(format!("Project \"{}\" deleted successfully", name.as_ref().unwrap()));
         } else {
-            println!("Project \"{}\" could not be deleted", name.as_ref().unwrap());
+            progress_bar.set_message(format!("Project \"{}\" could not be deleted", name.as_ref().unwrap()));
         }
+        progress_bar.finish();
         if current_path.exists() && Confirm::new()
-                .with_prompt("Delete local file?")
-                .interact()? {
+            .with_prompt("Delete local file?")
+            .interact()? {
             fs::remove_file(&current_path)?;
         }
+        return Ok(());
     }
     let file = File::open(&current_path)?;
     let project_config: ProjectFile = serde_json::from_reader(file)?;
@@ -55,7 +62,7 @@ pub async fn delete_project(force: bool, name: Option<String>) -> Result<(), Box
         println!("You are not logged in. Run \"envwoman login\" to log in");
         return Ok(());
     }
-    if !Confirm::new().with_prompt(stringify!("Do you want to continue to deltete \"{}\"", &project_config.name)).interact()? && !force {
+    if !force || !Confirm::new().with_prompt(format!("Do you want to continue to deltete \"{}\"", &project_config.name)).interact()? {
         return Ok(());
     }
     let resp = delete_req(project_config.name.clone(), cfg.api_url.clone(), cfg.api_key.clone()).await?;
