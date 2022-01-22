@@ -14,7 +14,6 @@ extern crate magic_crypt;
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
-// #[structopt(name = "envwoman", about = "The official cli for the envwoman.")]
 pub enum Command {
     #[clap(about = "Login into your account")]
     Login,
@@ -45,7 +44,12 @@ pub enum Command {
             value: String,
         },*/
     #[clap(about = "Delete the project")]
-    DeleteProject,
+    DeleteProject {
+        #[clap(short, long)]
+        force: bool,
+        #[clap(short, long)]
+        name: Option<String>,
+    },
     Activate,
     Add,
 }
@@ -69,7 +73,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Command::Pull => functions::pull::pull().await,
         Command::Push {no_pull} => functions::push::main(no_pull).await,
         Command::Init { name, from_file, description } => functions::init::init(name, from_file, description).await,
-        Command::DeleteProject => functions::delete_project::delete_project().await,
+        Command::DeleteProject { force, name} => functions::delete_project::delete_project(force, name).await,
         Command::Activate => activate().await,
         Command::Add => functions::add::main().await,
     };
