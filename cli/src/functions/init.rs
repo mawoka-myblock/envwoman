@@ -5,7 +5,9 @@ use std::io::{Read, Write};
 use std::path::PathBuf;
 use dialoguer::Confirm;
 use dotenv_parser::parse_dotenv;
+use git2::{BranchType, Repository};
 use regex::Regex;
+use serde::de::Unexpected::Str;
 use crate::{config, encryption};
 use crate::structs::ProjectFile;
 
@@ -17,6 +19,10 @@ pub async fn init(
     let cfg: config::Config = confy::load("envwoman")?;
     let project_name: String;
     let mut current_path = env::current_dir()?;
+    let repo: Option<Repository> = match Repository::open(&current_path) {
+        Ok(repo) => Some(repo),
+        Err(_) => None
+    };
     current_path.push(".envwoman.json");
     if current_path.exists() {
         println!("Project already exists. To delete it, please run \"envwoman delete\"");
@@ -39,8 +45,7 @@ pub async fn init(
             "Do you want to create a new project called \"{}\"".replace("{}", &project_name),
         )
         .interact()?
-    {
-    } else {
+    {} else {
         println!("If you want to choose a custom name, use envwoman init \"your_project_name\"");
         return Ok(());
     }
@@ -61,25 +66,33 @@ pub async fn init(
     let mut env_file = env::current_dir()?;
     env_file.push(".env");
     let current_env: Option<String>;
-    let mut new_vec = Vec::new();
-    new_vec.push("lol".to_string());
+
+    let mut branches: Vec<String> = Vec::new();
+    let current_branch: &String;
+    if repo.is_some() {
+
+        current_branch = &repo.unwrap().head().unwrap().name().unwrap().to_string().clone().to_string();
+        for branch in repo.unwrap().branches(Some(BranchType::Local))?.into_iter() {
+            branches.push(branch.unwrap().0.name().unwrap().map(String::from).unwrap());
+        }
+    } else {
+        branches.push("standard".to_string());
+    }
     if from_file.is_none() || !env_file.exists() {
         config_data = ProjectFile {
             name: project_name,
             file: None,
             description: description_new,
-            environments: new_vec,
+            environments: branches,
             selected_environment: "standard".to_string(),
         };
         current_env = None;
     } else {
-        let mut new_vec = Vec::new();
-        new_vec.push("lol".to_string());
         config_data = ProjectFile {
             name: project_name,
             file: Some(from_file.unwrap()),
             description: description_new,
-            environments: new_vec,
+            environments: branches,
             selected_environment: "standard".to_string(),
         };
         let mut file = File::open(&env_file)?;
@@ -87,10 +100,6 @@ pub async fn init(
         file.read_to_string(&mut read_file)?;
         let parsed_env = parse_dotenv(&read_file).unwrap();
         let env_data_vec: HashMap<&String, &String> = HashMap::from_iter(parsed_env.iter());
-        // let end_data_json = serde_json::from_str(&)?;
-        let test_str = "MOIN!".to_string();
-        // current_env = Some(encryption::encrypt_string(&Some(serde_json::from_str(&String::from_utf8_lossy(&env_data_vec.as_bytes())).unwrap()).unwrap())?);
-        // current_env = Some(encryption::encrypt_string(&Some(serde_json::from_slice(&env_data_vec.as_slice()).unwrap()).unwrap())?);
         let env_data_str: serde_json::value::Value = serde_json::from_str(&format!("{:?}", env_data_vec))?;
         current_env = Some(encryption::encrypt_string(&Some(env_data_str.to_string()).unwrap())?);
     }
@@ -137,7 +146,5 @@ pub async fn init(
             fs::remove_file(&current_path)?;
         }
         Ok(())
-    }
-
-
+    };
 }
