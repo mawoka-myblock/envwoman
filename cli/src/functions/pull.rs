@@ -1,6 +1,8 @@
 use std::{env, fs};
 use std::fs::{File, OpenOptions};
 use std::io::Write;
+use git2::{BranchType, Repository};
+use regex::Regex;
 use crate::{config, encryption, structs};
 use crate::structs::*;
 
@@ -8,6 +10,10 @@ use crate::structs::*;
 pub async fn pull() -> Result<(), Box<dyn std::error::Error>> {
     let cfg: config::Config = confy::load("envwoman")?;
     let mut config_file = env::current_dir()?;
+    let repo: Option<Repository> = match Repository::open(&config_file) {
+        Ok(repo) => Some(repo),
+        Err(_) => None
+    };
     config_file.push(".envwoman.json");
     let file = File::open(&config_file)?;
     let project_file: ProjectFile = serde_json::from_reader(file)?;
@@ -45,7 +51,35 @@ pub async fn pull() -> Result<(), Box<dyn std::error::Error>> {
                 return Ok(());
             }
         };
-        let data = encryption::decrypt_string(&project.data);
+        let mut branches: Vec<String> = Vec::new();
+        let current_branch: String;
+        if repo.is_some() {
+            current_branch = Regex::new(r"refs/heads/(.*)").unwrap().captures(repo.as_ref().unwrap().head().unwrap().name().unwrap()).unwrap().get(1).unwrap().as_str().to_string();
+            for branch in repo.unwrap().branches(Some(BranchType::Local))? {
+                branches.push(branch.unwrap().0.name().unwrap().map(String::from).unwrap());
+            }
+            println!("Current branch: {}, All branches available: {:?}", &current_branch, branches);
+        } else {
+            branches.push("standard".to_string());
+            current_branch = "standard".to_string();
+        }
+        let mut data: Option<String> = None;
+        for environment in &project.data {
+            if environment.contains_key(&current_branch) {
+                data = Some(encryption::decrypt_string(&environment[&current_branch])?);
+                let mut file = OpenOptions::new()
+                    .write(true)
+                    .create(true)
+                    .open(&env_file)?;
+                file.write_all(data.as_ref().unwrap().as_bytes())?;
+                println!("Updated env-file: {}", &env_file.to_str().unwrap());
+            }
+        }
+        if data.is_none() {
+            println!("No data for current branch");
+            return Ok(())
+        }
+
         // let mut env_file = env::current_dir()?;
         // env_file.push(&project_file.file.unwrap());
         File::create(&env_file)?;
@@ -58,8 +92,6 @@ pub async fn pull() -> Result<(), Box<dyn std::error::Error>> {
             .unwrap();
         file.write_all(data.unwrap().as_bytes())?;
         println!("Successfully updated envs");
-        let mut new_vec = Vec::new();
-        new_vec.push("lol".to_string());
         let copy_of_project_file = ProjectFile {
             name: project.name,
             description: match project.description {
@@ -67,8 +99,8 @@ pub async fn pull() -> Result<(), Box<dyn std::error::Error>> {
                 None => "".to_string(),
             },
             file: old_project_file_file,
-            environments: new_vec,
-            selected_environment: "standard".to_string(),
+            environments: branches,
+            selected_environment: current_branch,
         };
         // fs::remove_file(&config_file)?;
 

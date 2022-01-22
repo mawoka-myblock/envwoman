@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::path::PathBuf;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -9,7 +10,8 @@ pub struct ProjectResponse {
     pub name: String,
     pub description: Option<String>,
     pub members: Option<Vec<String>>,
-    pub data: String,
+    pub environments: Vec<String>,
+    pub data: Vec<HashMap<String, String>>,
     pub owner: String,
     pub date_created: String,
     pub date_modified: String,
@@ -44,4 +46,18 @@ pub struct CreateProject {
     pub environments: Vec<String>,
     pub selected_environment: String,
     pub data: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct UpdateProject {
+    // #[serde(skip_serializing_if = "Option::is_none")]
+    pub members: Option<Vec<String>>,
+    // #[serde(skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    // #[serde(skip_serializing_if = "Option::is_none")]
+    pub environments: Option<Vec<String>>,
+    // #[serde(skip_serializing_if = "Option::is_none")]
+    pub selected_environment: Option<String>,
+    // #[serde(skip_serializing_if = "Option::is_none")]
+    pub data: Option<String>,
 }
