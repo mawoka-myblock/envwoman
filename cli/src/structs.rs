@@ -37,3 +37,11 @@ pub struct ProjectFile {
     pub selected_environment: String,
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+pub struct CreateProject {
+    pub name: String,
+    pub description: String,
+    pub environments: Vec<String>,
+    pub selected_environment: String,
+    pub data: String,
+}

@@ -7,9 +7,8 @@ use dialoguer::Confirm;
 use dotenv_parser::parse_dotenv;
 use git2::{BranchType, Repository};
 use regex::Regex;
-use serde::de::Unexpected::Str;
 use crate::{config, encryption};
-use crate::structs::ProjectFile;
+use crate::structs::{CreateProject, ProjectFile};
 
 pub async fn init(
     name: Option<String>,
@@ -52,14 +51,12 @@ pub async fn init(
     let description_new: String;
     if description.is_some() {
         description_new = description.unwrap().to_string();
-    } else {
-        if Confirm::new().with_prompt("Do you want to add a description to your project?").interact()? {
-            let mut buffer = String::new();
-            let mut stdin = io::stdin();
-            stdin.read_line(&mut buffer)?;
-            description_new = buffer.trim().to_string();
-        } else { description_new = "".to_string(); }
-    }
+    } else if Confirm::new().with_prompt("Do you want to add a description to your project?").interact()? {
+        let mut buffer = String::new();
+        let mut stdin = io::stdin();
+        stdin.read_line(&mut buffer)?;
+        description_new = buffer.trim().to_string();
+    } else { description_new = "".to_string(); }
 
 
     let config_data: ProjectFile;
@@ -68,15 +65,17 @@ pub async fn init(
     let current_env: Option<String>;
 
     let mut branches: Vec<String> = Vec::new();
-    let current_branch: &String;
+    let current_branch: String;
     if repo.is_some() {
-
-        current_branch = &repo.unwrap().head().unwrap().name().unwrap().to_string().clone().to_string();
-        for branch in repo.unwrap().branches(Some(BranchType::Local))?.into_iter() {
+        let re = Regex::new(r"refs/heads/(.*)").unwrap();
+        current_branch = re.captures(repo.as_ref().unwrap().head().unwrap().name().unwrap()).unwrap().get(1).unwrap().as_str().to_string();
+        for branch in repo.unwrap().branches(Some(BranchType::Local))? {
             branches.push(branch.unwrap().0.name().unwrap().map(String::from).unwrap());
         }
+        println!("Current branch: {}, All branches available: {:?}", &current_branch, branches);
     } else {
         branches.push("standard".to_string());
+        current_branch = "standard".to_string();
     }
     if from_file.is_none() || !env_file.exists() {
         config_data = ProjectFile {
@@ -84,7 +83,7 @@ pub async fn init(
             file: None,
             description: description_new,
             environments: branches,
-            selected_environment: "standard".to_string(),
+            selected_environment: (current_branch.to_string()).parse().unwrap(),
         };
         current_env = None;
     } else {
@@ -93,7 +92,7 @@ pub async fn init(
             file: Some(from_file.unwrap()),
             description: description_new,
             environments: branches,
-            selected_environment: "standard".to_string(),
+            selected_environment: (current_branch.to_string()).parse().unwrap(),
         };
         let mut file = File::open(&env_file)?;
         let mut read_file = String::new();
@@ -103,9 +102,8 @@ pub async fn init(
         let env_data_str: serde_json::value::Value = serde_json::from_str(&format!("{:?}", env_data_vec))?;
         current_env = Some(encryption::encrypt_string(&Some(env_data_str.to_string()).unwrap())?);
     }
-    let mut map = HashMap::new();
-    map.insert("name", &config_data.name);
-    map.insert("description", &config_data.description);
+
+
 
     let current_env_new: String;
     if current_env.is_none() {
@@ -113,7 +111,14 @@ pub async fn init(
     } else {
         current_env_new = current_env.unwrap();
     }
-    map.insert("data", &current_env_new);
+
+    let data_to_send: CreateProject = CreateProject {
+        name: String::from(&config_data.name),
+        description: String::from(&config_data.description),
+        selected_environment: current_branch.to_string(),
+        environments: config_data.environments.clone(),
+        data: current_env_new,
+    };
 
     println!("Creating project on the server...");
     let resp = reqwest::Client::new()
@@ -122,7 +127,8 @@ pub async fn init(
             "{api_url}/api/v1/projects/create"
                 .replace("{api_url}", &cfg.api_url),
         )
-        .json(&map)
+        // .post("https://bin.muetsch.io/4tt5qi0")
+        .body(serde_json::to_string(&data_to_send).unwrap())
         .header(
             "mawoka-auth-header",
             &cfg.api_key,

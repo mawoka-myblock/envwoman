@@ -62,37 +62,6 @@ pub enum Command {
 
 async fn activate() -> Result<(), Box<dyn std::error::Error>> {
 
-    let mut config_file = env::current_dir()?;
-    let repo = Repository::open(&config_file)?;
-    // let branches: Vec<Option<&String>> = repo.branches(Some(BranchType::Local))?.into_iter().map(|b| b.unwrap().0.name().unwrap()).collect();
-    let mut branches: Vec<Option<&str>> = Vec::new();
-    for branch in repo.branches(Some(BranchType::Local))?.into_iter() {
-        // let val = branch.unwrap().0.name().unwrap().to_owned();
-        // let val = branch.unwrap();
-        // branches.push(val.0.name().unwrap());
-        let test: String = Some("lol".to_string()).unwrap();
-
-    }
-    config_file.push(".envwoman.json");
-    let file = File::open(&config_file)?;
-    let project_file: ProjectFile = serde_json::from_reader(file)?;
-
-    if project_file.file.is_none() {
-        println!("Cannot update envs since the env-file is missing!");
-        return Ok(());
-    }
-
-    let mut env_file = env::current_dir()?;
-    env_file.push(&project_file.file.unwrap());
-    let file_content = fs::read_to_string(&env_file)?;
-
-    let dotenv_map = parse_dotenv(&file_content).unwrap();
-    /*
-        for (key, value) in dotenv_map.iter() {
-            println!("{}={}", key, value);
-            // env::set_var(key, value);
-        }
-        */
     Ok(())
 }
 
