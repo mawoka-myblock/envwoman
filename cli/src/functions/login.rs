@@ -39,7 +39,6 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         return Err("Invalid code".into());
     } else if resp.status() == 200 {
         let body = resp.text().await?;
-        println!("{}", body);
         let mut modified_cfg = cfg;
         modified_cfg.api_key = body;
         modified_cfg.salt = rand::thread_rng()

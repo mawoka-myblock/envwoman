@@ -72,7 +72,6 @@ pub async fn init(
         for branch in repo.unwrap().branches(Some(BranchType::Local))? {
             branches.push(branch.unwrap().0.name().unwrap().map(String::from).unwrap());
         }
-        println!("Current branch: {}, All branches available: {:?}", &current_branch, branches);
     } else {
         branches.push("standard".to_string());
         current_branch = "standard".to_string();

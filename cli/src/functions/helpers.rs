@@ -34,7 +34,6 @@ pub async fn get_data_from_proj(env_file: &Path, data: Vec<HashMap<String, Strin
                 .create(true)
                 .open(&env_file).ok()?;
             file.write_all(return_data.as_ref().unwrap().as_bytes()).ok()?;
-            println!("Updated env-file: {}", &env_file.to_str().unwrap());
         }
     }
 

@@ -82,7 +82,6 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         // fs::remove_file(&config_file)?;
 
         let file = File::create(&config_file)?;
-        println!("{:?}", &copy_of_project_file);
         serde_json::to_writer(file, &copy_of_project_file)?;
         println!("Successfully updated envs");
     } else {
