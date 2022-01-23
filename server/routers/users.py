@@ -35,7 +35,7 @@ async def create_user(user: BaseUser, background_task: BackgroundTasks, h_captch
         Union[BaseUser, JSONResponse]:
     async with aiohttp.ClientSession() as session:
         async with session.post("https://hcaptcha.com/siteverify",
-                                data={"secret": settings.hcaptcha_key, "response": h_captcha_response}) as resp:
+                                data={"response": h_captcha_response, "secret": settings.hcaptcha_key}) as resp:
             data = await resp.json()
             if not data["success"]:
                 raise HTTPException(status_code=400, detail="Invalid captcha")
@@ -64,7 +64,6 @@ async def login(user: BaseUser, h_captcha_response: str = Header(None)):
         async with session.post("https://hcaptcha.com/siteverify",
                                 data={"response": h_captcha_response, "secret": settings.hcaptcha_key}) as resp:
             data = await resp.json()
-            print(h_captcha_response, data, settings.hcaptcha_key)
             if not data["success"]:
                 raise HTTPException(status_code=400, detail="Invalid captcha")
     userindb = await col("users").find_one({"email": user.email, "verified": True})

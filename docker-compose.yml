@@ -1,0 +1,36 @@
+
+services:
+  server:
+    build: server
+    restart: unless-stopped
+    environment:
+      - MONGO_URL="mongodb://root:example@mongo:27017/"
+      - MAIL_ADDRESS="hans@wurst.com"
+      - MAIL_PASSWORD="secret"
+      - MAIL_USERNAME="hans"
+      - MAIL_SERVER="smtp.gmail.com"
+      - MAIL_PORT=587
+      - SECRET_KEY="secret"
+      - HCAPTCHA_KEY="secret"
+      - REDIS_URL="redis://redis:6379"
+      - SKIP_EMAIL_VERIFICATION=False
+  redis:
+    image: redis:alpine
+  mongo:
+    image: mongo:4
+    restart: unless-stopped
+    volumes:
+      - ./data/mongo:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+  proxy:
+    image: caddy:alpine
+    restart: unless-stopped
+    volumes:
+      - Caddyfile-docker:/etc/caddy/Caddyfile
+    expose:
+      - 8000:80
+  web:
+    build: website
+    restart: unless-stopped

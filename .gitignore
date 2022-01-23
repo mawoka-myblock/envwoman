@@ -2,3 +2,4 @@
 dump.rdb
 .idea
 __pycache__
+.env*

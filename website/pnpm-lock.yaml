@@ -4,6 +4,7 @@ specifiers:
   '@fontsource/marck-script': ^4.5.0
   '@sveltejs/adapter-auto': next
   '@sveltejs/adapter-cloudflare': ^1.0.0-next.8
+  '@sveltejs/adapter-node': ^1.0.0-next.66
   '@sveltejs/kit': next
   autoprefixer: ^10.4.2
   cssnano: ^5.0.15
@@ -27,7 +28,8 @@ devDependencies:
   '@fontsource/marck-script': 4.5.0
   '@sveltejs/adapter-auto': 1.0.0-next.14
   '@sveltejs/adapter-cloudflare': 1.0.0-next.8
-  '@sveltejs/kit': 1.0.0-next.239_svelte@3.46.2
+  '@sveltejs/adapter-node': 1.0.0-next.66
+  '@sveltejs/kit': 1.0.0-next.240_svelte@3.46.2
   autoprefixer: 10.4.2_postcss@8.4.5
   cssnano: 5.0.15_postcss@8.4.5
   daisyui: 1.24.3
@@ -148,14 +150,20 @@ packages:
       tiny-glob: 0.2.9
     dev: true
 
+  /@sveltejs/adapter-node/1.0.0-next.66:
+    resolution: {integrity: sha512-CtBRv7TAo0tuPm+noYXMYHz7jeUSZlT3+eAmsBMeM+B0oB5yEyZGycAyLbMykrp1PlWgN3jg1oK6gpwHIbxrJA==}
+    dependencies:
+      tiny-glob: 0.2.9
+    dev: true
+
   /@sveltejs/adapter-vercel/1.0.0-next.39:
     resolution: {integrity: sha512-YOPGKIILm26h22GN4/iliXce61aTG3Dq5hX8xpDx0cNuCocv0OoLfIqiGpdyJ9NIMpjwXmpVoL4+nV+yh2wcSA==}
     dependencies:
       esbuild: 0.13.15
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.239_svelte@3.46.2:
-    resolution: {integrity: sha512-+qmiYVdNMmdnjni6/T4sj6yCUf02KvTLpnPZ5yca2grAgMuQkA/sW5Gnce9Zsop0sRKRvM1GY9Pnp8NhERXC6Q==}
+  /@sveltejs/kit/1.0.0-next.240_svelte@3.46.2:
+    resolution: {integrity: sha512-cHdxdSKAdCuty2lYlRHXE4rJZuKd4wur9U63JtPwysTaReMEJl+s9J/LVvyBzaLW/13x8vm/kKqx+DDcI0udlA==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:
