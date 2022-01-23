@@ -47,6 +47,8 @@ jobs:
       - run: rustup component add clippy
       - name: clippy lints
         run: cargo clippy
+      - name: build release Binary
+        run: cargo build --release
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2.3.1
         with:
