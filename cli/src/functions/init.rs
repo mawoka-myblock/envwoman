@@ -9,6 +9,8 @@ use git2::{BranchType, Repository};
 use regex::Regex;
 use crate::{config, encryption};
 use crate::structs::{CreateProject, ProjectFile};
+use indicatif::ProgressBar;
+
 
 pub async fn init(
     name: Option<String>,
@@ -119,7 +121,9 @@ pub async fn init(
         data: current_env_new,
     };
 
-    println!("Creating project on the server...");
+    let progress_bar = ProgressBar::new_spinner();
+    progress_bar.set_message("Creating project...");
+    progress_bar.enable_steady_tick(80);
     let resp = reqwest::Client::new()
         // .get("https://envwoman.eu.org/api/v1/cli-login/token/{}"
         .post(
@@ -135,21 +139,24 @@ pub async fn init(
         .send()
         .await?;
     return if resp.status() == 200 {
-        println!("Project created successfully!");
+        progress_bar.set_message("Project created successfully!");
         // println!("Project created successfully!");
         File::create(&current_path)?.write_all(serde_json::to_string(&config_data)?.as_bytes())?;
+        progress_bar.finish();
         Ok(())
     } else if resp.status() == 409 {
-        println!("A project with this name already exists!");
+        progress_bar.set_message("A project with this name already exists!");
         if current_path.exists() {
             fs::remove_file(&current_path)?;
         }
+        progress_bar.finish();
         Ok(())
     } else {
-        println!("Something went wrong!");
+        progress_bar.set_message("Something went wrong!");
         if current_path.exists() {
             fs::remove_file(&current_path)?;
         }
+        progress_bar.finish();
         Ok(())
     };
 }

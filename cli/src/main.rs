@@ -10,6 +10,8 @@ pub mod encryption;
 pub mod structs;
 
 use crate::structs::ProjectFile;
+use color_eyre::eyre::Result;
+
 
 #[macro_use]
 extern crate magic_crypt;
@@ -77,10 +79,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             ..Default::default()
         }));
     }
+    if !cfg.trace_enabled {
+        std::env::set_var("RUST_SPANTRACE", "0");
+    }
+    color_eyre::install()?;
     let args = Command::parse();
     return match args {
         Command::Login => functions::login::main().await,
-        Command::Pull => functions::pull::pull().await,
+        Command::Pull => functions::pull::pull(false).await,
         Command::Push { no_pull } => functions::push::main(no_pull).await,
         Command::Init { name, from_file, description } => functions::init::init(name, from_file, description).await,
         Command::DeleteProject { force, name } => functions::delete_project::delete_project(force, name).await,

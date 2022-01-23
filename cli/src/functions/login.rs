@@ -24,7 +24,9 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         println!("Please enter a valid code");
         return Err("Invalid code".into());
     }
-
+    let spinner = indicatif::ProgressBar::new_spinner();
+    spinner.set_message("Logging in...");
+    spinner.enable_steady_tick(80);
     let resp = reqwest::Client::new()
         // .get("https://envwoman.eu.org/api/v1/cli-login/token/{}"
         .get(
@@ -47,7 +49,8 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .map(char::from)
             .collect();
         confy::store("envwoman", &modified_cfg)?;
-        println!("Successfully logged in!");
+        spinner.set_message("Successfully logged in!");
+        spinner.finish()
     } else {
         println!("Unknown error");
         return Err("Unknown error".into());

@@ -6,7 +6,7 @@ use crate::functions::helpers::{get_branch, get_data_from_proj};
 use crate::structs::*;
 
 
-pub async fn pull() -> Result<(), Box<dyn std::error::Error>> {
+pub async fn pull(silent: bool) -> Result<(), Box<dyn std::error::Error>> {
     let cfg: config::Config = confy::load("envwoman")?;
     let mut config_file = env::current_dir()?;
     let repo: Option<Repository> = match Repository::open(&config_file) {
@@ -26,6 +26,11 @@ pub async fn pull() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut env_file = env::current_dir()?;
     env_file.push(&project_file.file.unwrap());
+    let spinner= indicatif::ProgressBar::new_spinner();
+    if !silent {
+        spinner.set_message("Getting data from server...");
+        spinner.enable_steady_tick(80);
+    }
 
     let res = reqwest::Client::new()
         .get("{api_url}/api/v1/projects/get/{project_name}"
@@ -46,8 +51,7 @@ pub async fn pull() -> Result<(), Box<dyn std::error::Error>> {
         let project: structs::ProjectResponse = match serde_json::from_str(&body) {
             Ok(project) => project,
             Err(_) => {
-                println!("Could not parse json into struct");
-                return Ok(());
+                return Err("Could not parse response from server".into());
             }
         };
         let temp_res = get_branch(repo).await;
@@ -61,7 +65,6 @@ pub async fn pull() -> Result<(), Box<dyn std::error::Error>> {
 
         // let mut env_file = env::current_dir()?;
         // env_file.push(&project_file.file.unwrap());
-        println!("Successfully updated envs");
         let copy_of_project_file = ProjectFile {
             name: project.name,
             description: match project.description {
@@ -76,7 +79,11 @@ pub async fn pull() -> Result<(), Box<dyn std::error::Error>> {
 
         let file = File::create(&config_file)?;
         serde_json::to_writer(file, &copy_of_project_file)?;
-        println!("Successfully updated envs");
+        if !silent {
+            spinner.set_message("Successfully updated envs");
+            spinner.finish()
+        }
+
     } else {
         println!("Unknown error");
         return Err("Unknown error".into());

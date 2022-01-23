@@ -6,6 +6,7 @@ pub struct Config {
     pub api_key: String,
     pub salt: String,
     pub sentry_enabled: bool,
+    pub trace_enabled: bool,
 }
 impl ::std::default::Default for Config {
     fn default() -> Self {
@@ -14,6 +15,7 @@ impl ::std::default::Default for Config {
             api_key: "".into(),
             salt: "".into(),
             sentry_enabled: true,
+            trace_enabled: false,
         }
     }
 }

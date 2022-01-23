@@ -7,7 +7,7 @@ use crate::structs::UpdateProject;
 
 pub async fn main(no_pull: bool) -> Result<(), Box<dyn std::error::Error>> {
     if !no_pull {
-        pull().await?;
+        pull(true).await?;
     }
     let cfg: config::Config = confy::load("envwoman")?;
     let mut config_file = env::current_dir()?;
@@ -46,7 +46,6 @@ pub async fn main(no_pull: bool) -> Result<(), Box<dyn std::error::Error>> {
         .post("{api_url}/api/v1/projects/update/{project_name}"
             .replace("{api_url}", &cfg.api_url)
             .replace("{project_name}", &project_file.name))
-        // .post("https://bin.muetsch.io/4tt5qi0")
         .header("mawoka-auth-header", &cfg.api_key)
         .body(match serde_json::to_string(&update_project) {
             Ok(body) => body,

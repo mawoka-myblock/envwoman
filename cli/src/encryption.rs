@@ -9,7 +9,7 @@ pub fn decrypt_string(to_decrypt: &str) -> Result<String, Box<dyn std::error::Er
     let username = &cfg.api_key;
     let entry = keyring::Entry::new(service, username);
     let mc = new_magic_crypt!(entry.get_password()?, 256);
-    let res = mc.decrypt_base64_to_string(to_decrypt).unwrap();
+    let res = mc.decrypt_base64_to_string(to_decrypt)?;
     Ok(res)
 }
 
