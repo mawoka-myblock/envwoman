@@ -5,6 +5,7 @@ pub struct Config {
     pub api_url: String,
     pub api_key: String,
     pub salt: String,
+    pub sentry_enabled: bool,
 }
 impl ::std::default::Default for Config {
     fn default() -> Self {
@@ -12,6 +13,7 @@ impl ::std::default::Default for Config {
             api_url: "http://localhost:8000".into(),
             api_key: "".into(),
             salt: "".into(),
+            sentry_enabled: true,
         }
     }
 }

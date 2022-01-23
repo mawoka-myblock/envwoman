@@ -1,5 +1,7 @@
 use std::path::{PathBuf};
+
 mod functions;
+
 use clap::{self, Parser};
 
 
@@ -61,19 +63,27 @@ pub enum Command {
 
 
 async fn activate() -> Result<(), Box<dyn std::error::Error>> {
-
     Ok(())
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let cfg: config::Config = confy::load("envwoman")?;
+    let _guard: sentry::ClientInitGuard;
+    if cfg.sentry_enabled {
+        _guard = sentry::init(("https://b8a0e0246043409092a000cc3afbb6fb@o661934.ingest.sentry.io/6162750", sentry::ClientOptions {
+            release: sentry::release_name!(),
+            traces_sample_rate: 1.0,
+            ..Default::default()
+        }));
+    }
     let args = Command::parse();
     return match args {
         Command::Login => functions::login::main().await,
         Command::Pull => functions::pull::pull().await,
-        Command::Push {no_pull} => functions::push::main(no_pull).await,
+        Command::Push { no_pull } => functions::push::main(no_pull).await,
         Command::Init { name, from_file, description } => functions::init::init(name, from_file, description).await,
-        Command::DeleteProject { force, name} => functions::delete_project::delete_project(force, name).await,
+        Command::DeleteProject { force, name } => functions::delete_project::delete_project(force, name).await,
         Command::Activate => activate().await,
         Command::Add => functions::add::main().await,
     };

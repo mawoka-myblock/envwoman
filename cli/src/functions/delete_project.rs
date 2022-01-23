@@ -21,7 +21,7 @@ async fn delete_req(project_name: String, api_url: String, api_key: String) -> R
         .send()
         .await;
 
-    return resp;
+    resp
 }
 
 pub async fn delete_project(force: bool, name: Option<String>) -> Result<(), Box<dyn std::error::Error>> {
@@ -34,6 +34,7 @@ pub async fn delete_project(force: bool, name: Option<String>) -> Result<(), Box
     let cfg: config::Config = confy::load("envwoman")?;
     if name.as_ref().is_some() {
         if !force {
+            #[warn(clippy::collapsible_if)]
             if !Confirm::new().with_prompt(format!("Do you want to continue to delete \"{}\"", name.as_ref().unwrap())).interact()? {
                 return Ok(());
             }
