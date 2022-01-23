@@ -26,4 +26,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run the deploy-hook
-        run: apt install curl && curl -X 'POST' ${{ secrets.DEPLOY_URL }} > /dev/null
+        run: curl -X 'POST' ${{ secrets.DEPLOY_URL }} > /dev/null
