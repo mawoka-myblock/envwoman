@@ -3,6 +3,11 @@
 	import Footer from "$lib/Footer.svelte";
 </script>
 
+<svelte:head>
+	<title>Envwoman - dotenv synchroniser</title>
+	<meta name="description" content="An application to sync your dotenv-files with others pcs and your server." />
+</svelte:head>
+
 
 <div class="pt-12 h-full">
 	<section class="section">

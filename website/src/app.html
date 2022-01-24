@@ -6,7 +6,16 @@
 		<link rel="icon" type="image/webp" href="%svelte.assets%/favicon.webp" />
 		<link rel="alternate icon" type="image/png" href="%svelte.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script async="" defer="" data-domain="mawoka.eu" src="https://sugar.mawoka.eu.org/js/plausible.outbound-links.js"></script>
+		<script>
+				window.plausible =
+					window.plausible ||
+					function () {
+						(window.plausible.q = window.plausible.q || []).push(arguments);
+					};
+			</script>
 		%svelte.head%
+
 	</head>
 	<body>
 		<div id="svelte">%svelte.body%</div>
