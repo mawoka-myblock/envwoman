@@ -11,7 +11,7 @@ pub struct Config {
 impl ::std::default::Default for Config {
     fn default() -> Self {
         Self {
-            api_url: "http://localhost:8000".into(),
+            api_url: "https://envwoman.mawoka.eu.org".into(),
             api_key: "".into(),
             salt: "".into(),
             sentry_enabled: true,
