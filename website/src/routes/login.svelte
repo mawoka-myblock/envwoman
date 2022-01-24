@@ -53,7 +53,7 @@
 			email: loginData.email,
 			password: loginData.password1
 		};
-		const res = await fetch(`/api/v1/users/login`, {
+		const res = await fetch(`https://envwoman.mawoka.eu.org/api/v1/users/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
