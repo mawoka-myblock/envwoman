@@ -81,7 +81,7 @@
 		<li class="py-2">
 			<a
 				class="text-lg font-medium lg:px-4 text-gray-600 hover:text-green-600 link-hover"
-				href="/things-i-do">GitHub</a
+				href="https://giithub.com/mawoka-myblock/envwoman">GitHub</a
 			>
 		</li>
 		

@@ -4,7 +4,8 @@ export default [
         action: "command",
         command: "curl https://install.envwoman.eu.org | sh",
         output: "Downloading... Installed successfully!",
-        transcription: "Executing the install-script"
+        // transcription: "Executing the install-script"
+        transcription: "COMING SOON!"
     },
     {
         action: "command",

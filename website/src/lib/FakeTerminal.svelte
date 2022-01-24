@@ -155,8 +155,8 @@
 			</g>
 		</svg>
 	</div>
-	<div class="absolute top-6 right-0 h-16 w-16 hover:cursor-pointer" on:click={reset}>
-		<svg
+	<div class="absolute top-6 right-0 h-16 w-16" >
+		<svg class="hover:cursor-pointer hover:text-green-500 transition" on:click={reset}
 			width="24"
 			height="24"
 			viewBox="0 0 24 24"

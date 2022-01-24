@@ -2,12 +2,7 @@
     import '../app.css';
     import Navbar from '$lib/navbar.svelte';
     import {onMount} from "svelte";
-    import {enableAutoOutboundTracking, trackPageview} from "$lib/tracker.js"
 
-    onMount(() => {
-        trackPageview();
-        enableAutoOutboundTracking();
-    })
 
 </script>
 

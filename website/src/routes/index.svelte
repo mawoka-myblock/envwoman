@@ -9,7 +9,7 @@
 </svelte:head>
 
 
-<div class="pt-12 h-full">
+<div class="pt-12 h-full pb-8">
 	<section class="section">
 		<div class="container pt-12 text-center">
 			<h1 class="sm:text-8xl text-6xl mt-6 marck-script">Envwoman</h1>
@@ -27,6 +27,12 @@
 			<p>But that doesn't matter! Envwoman is still awesome, although this website clearly isnt!</p>
 		</div>
 		
+	</div>
+
+	<div id="install">
+		<h1 class="text-center text-5xl marck-script px-4">Installation</h1>
+		<p class="text-center text-lg">Just grab the most recent version from <a class="underline hover:text-black" href="https://giithub.com/mawoka-myblock/envwoman">GitHub</a> and run it. If you want to compile it for yourself,
+		follow the instructions on GitHub.</p>
 	</div>
 </div>
 <Footer />
