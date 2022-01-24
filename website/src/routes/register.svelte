@@ -4,6 +4,8 @@
 	import tippy from 'sveltejs-tippy';
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/env';
+	import {trackEvent} from "$lib/tracker.js";
+	import Footer from "$lib/Footer.svelte";
 	let feedback = '';
 	let loggedInSuccessfully = false;
 	let loginData = {
@@ -65,6 +67,7 @@
 		});
 		let resp_text = await res.json();
 		if (res.status === 200) {
+			trackEvent('signup');
 			modalMessage =
 				'You successfully created your account! You just have to confirm your email-address and install envwoman and you are ready to go!';
 			modalOpen = true;
@@ -205,6 +208,7 @@
 		</div>
 	</div>
 </div>
+<Footer />
 
 <div id="my-modal" class="modal" class:modal-open={modalOpen}>
 	<div class="modal-box">

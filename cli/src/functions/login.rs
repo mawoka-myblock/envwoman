@@ -10,7 +10,8 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         return Ok(());
     }
     println!("To login, I'll try to open the browser for you, so you can easily log in. \n Please paste the code you'll get right in here!");
-    if webbrowser::open(&"{}/login".replace("{}", &cfg.api_url)).is_err() {
+    // if webbrowser::open(&"{}/login".replace("{}", &cfg.api_url)).is_err() {
+    if webbrowser::open(&"https://envwoman.mawoka.eu/login").is_err() {
         println!(
             "Could not open browser, please open this URL manually: https://envwoman.eu.org/login"
         );

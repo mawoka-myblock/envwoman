@@ -4,6 +4,7 @@
 	import tippy from 'sveltejs-tippy';
 	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/env';
+	import Footer from "$lib/Footer.svelte";
 	let loggedInSuccessfully = false;
 	let loginData = {
 		password1: '',
@@ -101,6 +102,7 @@
 	$: valid.password1 = loginData.password1.length >= 4;
 	let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 	$: valid.email = emailRegex.exec(loginData.email) !== null;
+	let passwdstrength;
 </script>
 
 <svelte:head>
@@ -192,8 +194,9 @@
 		</div>
 	</div>
 </div>
+<Footer />
 
-<div id="my-modal" class="modal" class:modal-open={ErrorModalOpen}>
+<div class="modal" class:modal-open={ErrorModalOpen}>
 	<div class="modal-box">
 		<p class="text-black">{modalMessage}</p>
 		<div class="modal-action">
@@ -207,7 +210,7 @@
 	</div>
 </div>
 
-<div id="my-modal" class="modal" class:modal-open={SuccessModalOpen}>
+<div class="modal" class:modal-open={SuccessModalOpen}>
 	<div class="modal-box">
 		<p class="text-black text-center">Here is your code. This code will last just 5mins.</p>
 		<p class="text-center"><code class="text-black text-xl text-center select-all">{SuccessModalCode}</code></p>

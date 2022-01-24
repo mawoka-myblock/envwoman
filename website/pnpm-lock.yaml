@@ -11,6 +11,7 @@ specifiers:
   daisyui: ^1.24.3
   dotenv: ^14.2.0
   node-sass: ^7.0.1
+  plausible-tracker: ^0.3.4
   postcss: ^8.4.5
   prettier: ^2.4.1
   prettier-plugin-svelte: ^2.4.0
@@ -34,6 +35,7 @@ devDependencies:
   cssnano: 5.0.15_postcss@8.4.5
   daisyui: 1.24.3
   node-sass: 7.0.1
+  plausible-tracker: 0.3.4
   postcss: 8.4.5
   prettier: 2.5.1
   prettier-plugin-svelte: 2.6.0_prettier@2.5.1+svelte@3.46.2
@@ -1968,6 +1970,11 @@ packages:
   /picomatch/2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
+    dev: true
+
+  /plausible-tracker/0.3.4:
+    resolution: {integrity: sha512-pc5fMmtagAlTYKOUcMk+AfV0t3bVpYv+zTEsBTFQL6n8frExxK54GBauxzbKF1hLZ16ggx/84mA4/ujLgbvvmQ==}
+    engines: {node: '>=10'}
     dev: true
 
   /postcss-calc/8.2.2_postcss@8.4.5:

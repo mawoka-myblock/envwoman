@@ -19,6 +19,7 @@
     "cssnano": "^5.0.15",
     "daisyui": "^1.24.3",
     "node-sass": "^7.0.1",
+    "plausible-tracker": "^0.3.4",
     "postcss": "^8.4.5",
     "prettier": "^2.4.1",
     "prettier-plugin-svelte": "^2.4.0",

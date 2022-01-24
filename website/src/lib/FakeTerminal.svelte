@@ -220,7 +220,7 @@
 	} */
 
 	.terminal {
-		position: relative;
+		/*position: relative;*/
 		font-family: monospace;
 		font-size: 1.5rem;
 		background: #333;
@@ -228,7 +228,7 @@
 		margin: 5rem;
 		border-radius: 0.5rem;
 		color: #b8b8b8;
-		box-shadow: 1px 1px #ccc;
+		/*box-shadow: 1px 1px #ccc;*/
 		min-height: 25rem;
 		min-width: 35em;
 		overflow: hidden;
@@ -282,7 +282,7 @@
 	}
 
 	.transcription.visible {
-		top: 0px;
+		top: 0;
 	}
 
 	.prompt {
