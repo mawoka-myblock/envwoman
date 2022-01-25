@@ -50,8 +50,8 @@ async def create_user(user: BaseUser, background_task: BackgroundTasks, h_captch
         return JSONResponse({"details": "Username mustn't be 32 characters long"}, 400)
     userindb = UserInDB(**user.dict(by_alias=True), date_joined=str(datetime.now()))
     _id = await col("users").insert_one(userindb.dict(by_alias=True))
-    return JSONResponse({"details": "User created successfully"}, status_code=201)
     background_task.add_task(send_mail, email=user.email)
+    return JSONResponse({"details": "User created successfully"}, status_code=201)
 
 
 @router.post("/login", status_code=status.HTTP_200_OK, response_class=PlainTextResponse)
