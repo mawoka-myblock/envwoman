@@ -65,7 +65,7 @@
 			body: JSON.stringify(json_data)
 		});
 		let resp_text = await res.json();
-		if (res.status === 200) {
+		if (res.status === 201) {
 			plausible("register")
 			modalMessage =
 				'You successfully created your account! You just have to confirm your email-address and install envwoman and you are ready to go!';
