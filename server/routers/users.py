@@ -25,7 +25,7 @@ async def get_verify_code(key: str):
     """
     res = await col("users").find_one_and_update({"verified": key}, {"$set": {"verified": True}})
     if res is not None:
-        return RedirectResponse(settings.root_address, 306)
+        return RedirectResponse("https://envwoman.mawoka.eu/success", 306)
     else:
         return PlainTextResponse("Wrong Code!", 404)
 
@@ -38,6 +38,7 @@ async def create_user(user: BaseUser, background_task: BackgroundTasks, h_captch
                                 data={"response": h_captcha_response, "secret": settings.hcaptcha_key}) as resp:
             data = await resp.json()
             if not data["success"]:
+                print(data)
                 raise HTTPException(status_code=400, detail="Invalid captcha")
 
     if not data["success"]:
@@ -49,6 +50,7 @@ async def create_user(user: BaseUser, background_task: BackgroundTasks, h_captch
         return JSONResponse({"details": "Username mustn't be 32 characters long"}, 400)
     userindb = UserInDB(**user.dict(by_alias=True), date_joined=str(datetime.now()))
     _id = await col("users").insert_one(userindb.dict(by_alias=True))
+    return JSONResponse({"details": "User created successfully"}, status_code=201)
     background_task.add_task(send_mail, email=user.email)
 
 
@@ -65,6 +67,7 @@ async def login(user: BaseUser, h_captcha_response: str = Header(None)):
                                 data={"response": h_captcha_response, "secret": settings.hcaptcha_key}) as resp:
             data = await resp.json()
             if not data["success"]:
+                print(data)
                 raise HTTPException(status_code=400, detail="Invalid captcha")
     userindb = await col("users").find_one({"email": user.email, "verified": True})
     if userindb is None:

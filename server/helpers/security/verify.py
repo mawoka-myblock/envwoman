@@ -20,7 +20,7 @@ async def send_mail(email: str):
 
         text = f"""
         Hey {user["email"]}!
-        Zum verifizieren bitte auf die folgende Seite gehen: {settings.root_address}/api/v1/users/verify/{random_key}
+        Please visit the following page to verify your account: {settings.root_address}/api/v1/users/users/verify/{random_key}
         Viele Grüße!
         """
         msg.attach(MIMEText(text, "plain"))
