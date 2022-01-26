@@ -41,7 +41,7 @@ pub async fn main(no_pull: bool) -> Result<(), Box<dyn std::error::Error>> {
         description: None,
         data: Option::from(data)
     };
-
+    // println!("{:?}", encryption::decrypt_string(&update_project.data.as_ref().unwrap()));
     let res = reqwest::Client::new()
         .post("{api_url}/api/v1/projects/update/{project_name}"
             .replace("{api_url}", &cfg.api_url)
@@ -63,7 +63,6 @@ pub async fn main(no_pull: bool) -> Result<(), Box<dyn std::error::Error>> {
     } else if res.status() == 200 {
         println!("Successfully updated envs");
     } else {
-        println!("Unknown error");
         return Err("Unknown error".into());
     }
 

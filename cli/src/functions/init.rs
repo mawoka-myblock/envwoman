@@ -1,10 +1,8 @@
 use std::{env, fs, io};
-use std::collections::HashMap;
 use std::fs::File;
 use std::io::{Read, Write};
 use std::path::PathBuf;
 use dialoguer::Confirm;
-use dotenv_parser::parse_dotenv;
 use git2::{BranchType, Repository};
 use regex::Regex;
 use crate::{config, encryption};
@@ -98,10 +96,10 @@ pub async fn init(
         let mut file = File::open(&env_file)?;
         let mut read_file = String::new();
         file.read_to_string(&mut read_file)?;
-        let parsed_env = parse_dotenv(&read_file).unwrap();
-        let env_data_vec: HashMap<&String, &String> = HashMap::from_iter(parsed_env.iter());
-        let env_data_str: serde_json::value::Value = serde_json::from_str(&format!("{:?}", env_data_vec))?;
-        current_env = Some(encryption::encrypt_string(&Some(env_data_str.to_string()).unwrap())?);
+        // let parsed_env = parse_dotenv(&read_file).unwrap();
+        // let env_data_vec: HashMap<&String, &String> = HashMap::from_iter(parsed_env.iter());
+        // let env_data_str: serde_json::value::Value = serde_json::from_str(&format!("{:?}", env_data_vec))?;
+        current_env = Some(encryption::encrypt_string(&Some(read_file.to_string()).unwrap())?);
     }
 
 

@@ -63,12 +63,20 @@ pub async fn delete_project(force: bool, name: Option<String>) -> Result<(), Box
         println!("You are not logged in. Run \"envwoman login\" to log in");
         return Ok(());
     }
-    if !force || !Confirm::new().with_prompt(format!("Do you want to continue to deltete \"{}\"", &project_config.name)).interact()? {
-        return Ok(());
+    if !force {
+        #[warn(clippy::collapsible_if)]
+        if !Confirm::new().with_prompt(format!("Do you want to continue to delete \"{}\"", &project_config.name)).interact()? {
+            return Ok(());
+        }
+
     }
     let resp = delete_req(project_config.name.clone(), cfg.api_url.clone(), cfg.api_key.clone()).await?;
     if resp.status() == 200 {
         println!("Deleted project successfully!");
+
+        if name.as_ref().is_none() {
+            fs::remove_file(&current_path)?;
+        }
     } else {
         println!("The project doesn't exist on the server. Shall I delete the local file?");
         if Confirm::new()
