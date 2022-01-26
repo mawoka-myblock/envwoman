@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks, Request
 from fastapi.responses import RedirectResponse, PlainTextResponse, JSONResponse
 from helpers.security.verify import send_mail
 
@@ -9,13 +9,15 @@ from typing import List, Union
 import os
 from helpers.config import settings
 from helpers.models import *
+from helpers.rl import limiter
 from helpers.auth import *
 
 router = APIRouter()
 
 
 @router.get("/token/{token}", response_class=PlainTextResponse)
-async def get_token(token: str):
+@limiter.limit("1/minute")
+async def get_token(token: str, request: Request):
     """
     Get a token for a user.
     """
@@ -29,11 +31,11 @@ async def get_token(token: str):
 
 
 @router.get("/test-key/{key}", response_class=PlainTextResponse)
-async def test_token(key: str):
+@limiter.limit("1/minute")
+async def test_token(key: str, request: Request):
     """
     Test if a key is valid.
     """
     user = await get_user_from_header(key)
     if user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid key")
-
