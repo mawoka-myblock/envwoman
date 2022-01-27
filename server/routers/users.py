@@ -1,7 +1,7 @@
 from datetime import datetime
 
 import aiohttp
-from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks, Header
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks, Header, Body
 from fastapi.responses import RedirectResponse, PlainTextResponse, JSONResponse
 from helpers.security.verify import send_mail
 
@@ -79,3 +79,23 @@ async def login(user: BaseUser, h_captcha_response: str = Header(None)):
     code = random.randint(0000000000, 9999999999)
     await redis().set(name=f"token-{str(code)}", value=str(userindb["_id"]), ex=600)
     return str(code)
+
+
+@router.post("/logout", status_code=status.HTTP_200_OK, response_class=PlainTextResponse)
+async def logout(api_key: str, mawoka_auth_header: str = Header(None)):
+    user = await get_user_from_header(mawoka_auth_header)
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication credentials")
+    await col("users").find_one_and_update({"api_key": api_key}, {"$set": {"api_keys": []}})
+    return "Logged out"
+
+
+@router.delete("/delete", status_code=status.HTTP_200_OK, response_class=PlainTextResponse)
+async def delete_user(api_key: str, mawoka_auth_header: str = Header(None), password: str = Body(None)):
+    user = await get_user_from_header(mawoka_auth_header)
+    if user is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication credentials")
+    if await col("users").find_one_and_delete({"api_key": api_key, "password": get_password_hash(password)}) is None:
+        raise HTTPException(status_code=400, detail="Invalid password or api_key")
+    await col("projects").delete_many({"owner": user.email})
+    return "User deleted"

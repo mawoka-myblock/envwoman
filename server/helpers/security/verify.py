@@ -21,7 +21,7 @@ async def send_mail(email: str):
         text = f"""
         Hey {user["email"]}!
         Please visit the following page to verify your account: {settings.root_address}/api/v1/users/users/verify/{random_key}
-        Viele Grüße!
+        Cheers!
         """
         msg.attach(MIMEText(text, "plain"))
         context = ssl.SSLContext(ssl.PROTOCOL_TLS)
