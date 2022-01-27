@@ -31,7 +31,7 @@
 
 	<div id="install">
 		<h1 class="text-center text-5xl marck-script px-4">Installation</h1>
-		<p class="text-center text-lg">Just grab the most recent version from <a class="underline hover:text-black" href="https://giithub.com/mawoka-myblock/envwoman">GitHub</a> and run it. If you want to compile it for yourself,
+		<p class="text-center text-lg">Just grab the most recent version from <a class="underline hover:text-black" href="https://github.com/mawoka-myblock/envwoman/releases">GitHub</a> and run it. If you want to compile it for yourself,
 		follow the instructions on GitHub.</p>
 	</div>
 </div>
