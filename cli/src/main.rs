@@ -65,6 +65,12 @@ pub enum Command {
         file: PathBuf,
     },
     ListProjects,
+/*
+    ChangePassword {
+        #[clap(short, long)]
+        local: bool,
+    }
+    */
 }
 
 /*async fn add(key: String, value: String) -> Result<(), Box<dyn std::error::Error>> {
@@ -103,5 +109,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Command::Add => functions::add::main().await,
         Command::Reinit {name, file} => functions::reinit::main(name, file).await,
         Command::ListProjects => functions::list_projects::main().await,
+        // Command::ChangePassword {local} => functions::change_password::main(local).await,
     };
 }
