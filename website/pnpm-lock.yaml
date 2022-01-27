@@ -15,17 +15,20 @@ specifiers:
   prettier-plugin-svelte: ^2.4.0
   svelte: ^3.44.0
   svelte-loading-spinners: ^0.1.7
+  svelte-particles: ^1.22.1
   svelte-preprocess: ^4.10.2
   sveltejs-tippy: ^3.0.0
   tailwindcss: ^3.0.15
+  tsparticles-preset-confetti: ^1.24.1
+  typescript: ^4.5.5
   zxcvbn: ^4.4.2
 
 devDependencies:
   '@fontsource/marck-script': 4.5.0
-  '@sveltejs/adapter-auto': 1.0.0-next.15
+  '@sveltejs/adapter-auto': 1.0.0-next.17
   '@sveltejs/adapter-cloudflare': 1.0.0-next.8
   '@sveltejs/adapter-node': 1.0.0-next.66
-  '@sveltejs/kit': 1.0.0-next.241_svelte@3.46.2
+  '@sveltejs/kit': 1.0.0-next.245_svelte@3.46.2
   autoprefixer: 10.4.2_postcss@8.4.5
   cssnano: 5.0.15_postcss@8.4.5
   daisyui: 1.24.3
@@ -35,9 +38,12 @@ devDependencies:
   prettier-plugin-svelte: 2.6.0_prettier@2.5.1+svelte@3.46.2
   svelte: 3.46.2
   svelte-loading-spinners: 0.1.7
-  svelte-preprocess: 4.10.2_67fa3d30cf818fc8842399019a0a6e32
+  svelte-particles: 1.22.1_svelte@3.46.2
+  svelte-preprocess: 4.10.2_5f140a88a03cfe182380c52bd1645da1
   sveltejs-tippy: 3.0.0
   tailwindcss: 3.0.15_ef48b3b8837f8a23677bffe8f9cd866d
+  tsparticles-preset-confetti: 1.24.1
+  typescript: 4.5.5
   zxcvbn: 4.4.2
 
 packages:
@@ -124,11 +130,11 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@sveltejs/adapter-auto/1.0.0-next.15:
-    resolution: {integrity: sha512-Xv3YU7t7j1wlVkg/6/T5cpkznoFRx9BU79OctQgQ+De+HMbpnxuQ4GM7k5YkOQmlO9Wr+hlcuFPOs0JVgAjkOw==}
+  /@sveltejs/adapter-auto/1.0.0-next.17:
+    resolution: {integrity: sha512-jLMh+5whg9uSJkvAYyVhi4z4GpqWxSR/XhhFCUqDMYN2hMTGCBaB4ReUAHSYIFw3IPV7m318z9igXriOaL6agQ==}
     dependencies:
-      '@sveltejs/adapter-cloudflare': 1.0.0-next.8
-      '@sveltejs/adapter-netlify': 1.0.0-next.43
+      '@sveltejs/adapter-cloudflare': 1.0.0-next.9
+      '@sveltejs/adapter-netlify': 1.0.0-next.44
       '@sveltejs/adapter-vercel': 1.0.0-next.39
     dev: true
 
@@ -138,8 +144,14 @@ packages:
       esbuild: 0.13.15
     dev: true
 
-  /@sveltejs/adapter-netlify/1.0.0-next.43:
-    resolution: {integrity: sha512-F/45VpKHDiEUNHdQi/fUNA0SbxNFyUfuZctMEOGvypdYng3R25pyywFHFL8aQFpHUye/CW/fhPr/tSrMp15IPg==}
+  /@sveltejs/adapter-cloudflare/1.0.0-next.9:
+    resolution: {integrity: sha512-xoPbFinqFbzphVf4rjGqU/6CC/QciXtXpBn6+hp4mChjX/9X5c/fxjkVGHPdpq6moTIfaZiMU/EUKtbBvyTBUw==}
+    dependencies:
+      esbuild: 0.13.15
+    dev: true
+
+  /@sveltejs/adapter-netlify/1.0.0-next.44:
+    resolution: {integrity: sha512-GY3w4K4gW+wXo6lGes7gFcPPaUt9kY2xCfhcNfwDvbOf0PsasZD5WatAPtEE9Xz5WTtQLEEgXljVMqsPkpb75Q==}
     dependencies:
       '@iarna/toml': 2.2.5
       esbuild: 0.13.15
@@ -158,8 +170,8 @@ packages:
       esbuild: 0.13.15
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.241_svelte@3.46.2:
-    resolution: {integrity: sha512-KuRXJEoSPloGxv3HYniZT2u04zwkYFk1lE1pLOyX96D5Po8CxIhBJlSo3YjTBNJ+AbN5a3T2zxLSw6azecdd7Q==}
+  /@sveltejs/kit/1.0.0-next.245_svelte@3.46.2:
+    resolution: {integrity: sha512-tvgzGA0nLsYNoCHfC0SCRbWWdLY4xP6Uyv3oy+J+5VOUOhzOjh3xiP6LKvF4PLf0t3lJXybcVWzi8vqU3kfjug==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:
@@ -2766,7 +2778,17 @@ packages:
     resolution: {integrity: sha512-EKCId1DjVL2RSUVJJsvtNcqQHox03XIgh4xh/4p7r6ST7d8mut6INY9/LqK4A17PFU64+3quZmqiSfOlf480CA==}
     dev: true
 
-  /svelte-preprocess/4.10.2_67fa3d30cf818fc8842399019a0a6e32:
+  /svelte-particles/1.22.1_svelte@3.46.2:
+    resolution: {integrity: sha512-7wvMGpfVCmo/zFm+lFG+vsXPjCt2jCDzxSZm8JJ4R6iJWfqnpoukwBnC/nzjlq3RKzr0Xt8nRHfvY9VqBv1JCw==}
+    peerDependencies:
+      svelte: '>=3'
+    dependencies:
+      svelte: 3.46.2
+      tslib: 2.3.1
+      tsparticles: 1.39.1
+    dev: true
+
+  /svelte-preprocess/4.10.2_5f140a88a03cfe182380c52bd1645da1:
     resolution: {integrity: sha512-aPpkCreSo8EL/y8kJSa1trhiX0oyAtTjlNNM7BNjRAsMJ8Yy2LtqHt0zyd4pQPXt+D4PzbO3qTjjio3kwOxDlA==}
     engines: {node: '>= 9.11.2'}
     requiresBuild: true
@@ -2816,6 +2838,7 @@ packages:
       sorcery: 0.10.0
       strip-indent: 3.0.0
       svelte: 3.46.2
+      typescript: 4.5.5
     dev: true
 
   /svelte/3.46.2:
@@ -2932,6 +2955,21 @@ packages:
       glob: 7.2.0
     dev: true
 
+  /tslib/2.3.1:
+    resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
+    dev: true
+
+  /tsparticles-preset-confetti/1.24.1:
+    resolution: {integrity: sha512-tEZsVCKFOhFtl1a/o/N3oruapclRDvGqvDjXASL8aA13cmFaVbyuNtpL7uTPQvIIFNifKXxSMWqtMC4FYYCubQ==}
+    dependencies:
+      tsparticles: 1.39.1
+    dev: true
+
+  /tsparticles/1.39.1:
+    resolution: {integrity: sha512-jrH2aWk9Rpx9hL7RU5vGPO/d+mfrHwDCFI4iXbSbmE02fak8YLjV6n3D4N8vBjm+JKExXRLbb3CgVM8Gmfuo8w==}
+    requiresBuild: true
+    dev: true
+
   /tunnel-agent/0.6.0:
     resolution: {integrity: sha1-J6XeoGs2sEoKmWZ3SykIaPD8QP0=}
     dependencies:
@@ -2955,6 +2993,12 @@ packages:
   /type-fest/0.8.1:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
+    dev: true
+
+  /typescript/4.5.5:
+    resolution: {integrity: sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
     dev: true
 
   /unique-filename/1.1.1:

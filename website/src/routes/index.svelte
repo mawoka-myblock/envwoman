@@ -24,7 +24,7 @@
 		</div>
 		<div class="md:hidden text-center">
 			<p>On the desktop, you would get a cool demo here...</p>
-			<p>But that doesn't matter! Envwoman is still awesome, although this website clearly isnt!</p>
+			<p>But that doesn't matter! Envwoman is still awesome, although this website clearly isn't!</p>
 		</div>
 		
 	</div>

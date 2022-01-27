@@ -5,3 +5,4 @@ pub mod delete_project;
 pub mod push;
 pub mod pull;
 pub mod helpers;
+pub mod reinit;

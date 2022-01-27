@@ -56,6 +56,12 @@ pub enum Command {
     },
     Activate,
     Add,
+    Reinit {
+        #[clap(short, long)]
+        name: Option<String>,
+        #[clap(short, long)]
+        file: PathBuf,
+    },
 }
 
 /*async fn add(key: String, value: String) -> Result<(), Box<dyn std::error::Error>> {
@@ -92,5 +98,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Command::DeleteProject { force, name } => functions::delete_project::delete_project(force, name).await,
         Command::Activate => activate().await,
         Command::Add => functions::add::main().await,
+        Command::Reinit {name, file} => functions::reinit::main(name, file).await,
     };
 }
