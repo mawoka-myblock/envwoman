@@ -15,6 +15,8 @@ use color_eyre::eyre::Result;
 
 #[macro_use]
 extern crate magic_crypt;
+#[macro_use] extern crate prettytable;
+
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
@@ -62,6 +64,7 @@ pub enum Command {
         #[clap(short, long)]
         file: PathBuf,
     },
+    ListProjects,
 }
 
 /*async fn add(key: String, value: String) -> Result<(), Box<dyn std::error::Error>> {
@@ -99,5 +102,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Command::Activate => activate().await,
         Command::Add => functions::add::main().await,
         Command::Reinit {name, file} => functions::reinit::main(name, file).await,
+        Command::ListProjects => functions::list_projects::main().await,
     };
 }

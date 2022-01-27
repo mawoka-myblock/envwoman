@@ -24,10 +24,10 @@ pub struct ListProjectResponse1 {
     pub name: String,
     pub description: String,
     pub members: Vec<Value>,
-    pub data: String,
     pub owner: String,
     pub date_created: String,
     pub date_modified: String,
+    pub environments: Vec<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
