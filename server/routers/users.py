@@ -82,20 +82,20 @@ async def login(user: BaseUser, h_captcha_response: str = Header(None)):
 
 
 @router.post("/logout", status_code=status.HTTP_200_OK, response_class=PlainTextResponse)
-async def logout(api_key: str, mawoka_auth_header: str = Header(None)):
+async def logout(mawoka_auth_header: str = Header(None)):
     user = await get_user_from_header(mawoka_auth_header)
     if user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication credentials")
-    await col("users").find_one_and_update({"api_key": api_key}, {"$set": {"api_keys": []}})
+    await col("users").find_one_and_update({"api_key": mawoka_auth_header}, {"$set": {"api_keys": []}})
     return "Logged out"
 
 
 @router.delete("/delete", status_code=status.HTTP_200_OK, response_class=PlainTextResponse)
-async def delete_user(api_key: str, mawoka_auth_header: str = Header(None), password: str = Body(None)):
+async def delete_user(mawoka_auth_header: str = Header(None), password: str = Body(None)):
     user = await get_user_from_header(mawoka_auth_header)
     if user is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication credentials")
-    if await col("users").find_one_and_delete({"api_key": api_key, "password": get_password_hash(password)}) is None:
+    if await col("users").find_one_and_delete({"api_key": mawoka_auth_header, "password": get_password_hash(password)}) is None:
         raise HTTPException(status_code=400, detail="Invalid password or api_key")
     await col("projects").delete_many({"owner": user.email})
     return "User deleted"
