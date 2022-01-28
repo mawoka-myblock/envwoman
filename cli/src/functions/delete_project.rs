@@ -31,7 +31,7 @@ pub async fn delete_project(force: bool, name: Option<String>) -> Result<(), Box
         println!("Project does not exist");
         return Ok(());
     }
-    let cfg: config::Config = confy::load("envwoman")?;
+    let cfg: config::Config = confy::load("envwoman", None)?;
     if name.as_ref().is_some() {
         if !force {
             #[warn(clippy::collapsible_if)]

@@ -65,6 +65,11 @@ pub enum Command {
         file: PathBuf,
     },
     ListProjects,
+    Logout {
+        #[clap(short, long)]
+        local: bool,
+    },
+
 /*
     ChangePassword {
         #[clap(short, long)]
@@ -85,7 +90,7 @@ async fn activate() -> Result<(), Box<dyn std::error::Error>> {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let cfg: config::Config = confy::load("envwoman")?;
+    let cfg: config::Config = confy::load("envwoman", None)?;
     let _guard: sentry::ClientInitGuard;
     if cfg.sentry_enabled {
         _guard = sentry::init(("https://b8a0e0246043409092a000cc3afbb6fb@o661934.ingest.sentry.io/6162750", sentry::ClientOptions {
@@ -94,9 +99,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             ..Default::default()
         }));
     }
-    if !cfg.trace_enabled {
-        std::env::set_var("RUST_SPANTRACE", "0");
-    }
+    // if !cfg.trace_enabled {
+    //     std::env::set_var("RUST_SPANTRACE", "0");
+    // }
     color_eyre::install()?;
     let args = Command::parse();
     return match args {
@@ -109,6 +114,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Command::Add => functions::add::main().await,
         Command::Reinit {name, file} => functions::reinit::main(name, file).await,
         Command::ListProjects => functions::list_projects::main().await,
+        Command::Logout { local } => functions::logout::main(local).await,
         // Command::ChangePassword {local} => functions::change_password::main(local).await,
     };
+
 }

@@ -15,7 +15,7 @@ pub async fn init(
     from_file: Option<PathBuf>,
     description: Option<String>,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let cfg: config::Config = confy::load("envwoman")?;
+    let cfg: config::Config = confy::load("envwoman", None)?;
 
     let mut current_path = env::current_dir()?;
     let repo: Option<Repository> = match Repository::open(&current_path) {
@@ -101,7 +101,6 @@ pub async fn init(
         // let env_data_str: serde_json::value::Value = serde_json::from_str(&format!("{:?}", env_data_vec))?;
         current_env = Some(encryption::encrypt_string(&Some(read_file.to_string()).unwrap())?);
     }
-
 
 
 

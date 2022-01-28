@@ -4,7 +4,7 @@ use rand::Rng;
 use crate::config;
 
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let cfg: config::Config = confy::load("envwoman")?;
+    let cfg: config::Config = confy::load("envwoman", None)?;
     if !cfg.api_key.is_empty() {
         println!("Already logged in");
         return Ok(());
@@ -37,36 +37,34 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         )
         .send()
         .await?;
+    let password: String;
     if resp.status() == 404 {
         println!("Invalid code");
         return Err("Invalid code".into());
     } else if resp.status() == 200 {
+        spinner.set_message("Successfully logged in!");
+        spinner.finish();
         let body = resp.text().await?;
         let mut modified_cfg = cfg;
+        password = dialoguer::Password::new().with_prompt("Please enter an encryption-password for this project")
+            .with_confirmation("Confirm password", "Passwords mismatching")
+            .interact().unwrap();
         modified_cfg.api_key = body;
         modified_cfg.salt = rand::thread_rng()
             .sample_iter(&Alphanumeric)
             .take(16)
             .map(char::from)
             .collect();
-        confy::store("envwoman", &modified_cfg)?;
-        spinner.set_message("Successfully logged in!");
-        spinner.finish()
+        confy::store("envwoman", None, &modified_cfg)?;
+        println!("Logged in successfully!");
+
     } else {
         println!("Unknown error");
         return Err("Unknown error".into());
     }
-    let cfg: config::Config = confy::load("envwoman")?;
-    let service = "envwoman";
-    let username = &cfg.api_key;
-    println!("Please enter an encryption-password for this project");
-    let password = rpassword::read_password_from_tty(Some("Password: ")).unwrap();
-    let password_confirm = rpassword::read_password_from_tty(Some("Confirm password: ")).unwrap();
-    if password != password_confirm {
-        println!("Passwords do not match");
-        return Ok(());
-    }
-    let entry = keyring::Entry::new(service, username);
+
+
+    let entry = keyring::Entry::new("envwoman", "envwoman");
     entry.set_password(&password)?;
 
     Ok(())

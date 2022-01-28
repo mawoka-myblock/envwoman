@@ -7,7 +7,7 @@ use crate::structs::*;
 
 
 pub async fn pull(silent: bool) -> Result<(), Box<dyn std::error::Error>> {
-    let cfg: config::Config = confy::load("envwoman")?;
+    let cfg: config::Config = confy::load("envwoman", None)?;
     let mut config_file = env::current_dir()?;
     let repo: Option<Repository> = match Repository::open(&config_file) {
         Ok(repo) => Some(repo),
@@ -26,7 +26,7 @@ pub async fn pull(silent: bool) -> Result<(), Box<dyn std::error::Error>> {
 
     let mut env_file = env::current_dir()?;
     env_file.push(&project_file.file.unwrap());
-    let spinner= indicatif::ProgressBar::new_spinner();
+    let spinner = indicatif::ProgressBar::new_spinner();
     if !silent {
         spinner.set_message("Getting data from server...");
         spinner.enable_steady_tick(80);
@@ -83,7 +83,6 @@ pub async fn pull(silent: bool) -> Result<(), Box<dyn std::error::Error>> {
             spinner.set_message("Successfully updated envs");
             spinner.finish()
         }
-
     } else {
         println!("Unknown error");
         return Err("Unknown error".into());

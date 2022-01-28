@@ -3,7 +3,7 @@ use crate::{config, encryption, structs};
 use crate::functions::helpers::get_data_from_proj;
 
 pub async fn main(local: bool) -> Result<(), Box<dyn std::error::Error>> {
-    let cfg: config::Config = confy::load("envwoman")?;
+    let cfg: config::Config = confy::load("envwoman", None)?;
     let res = reqwest::Client::new()
         .get("{api_url}/api/v1/projects/list".replace("{api_url}", &cfg.api_url))
         .header("mawoka-auth-header", &cfg.api_key)

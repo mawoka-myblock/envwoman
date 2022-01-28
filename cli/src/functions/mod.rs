@@ -7,5 +7,6 @@ pub mod pull;
 pub mod helpers;
 pub mod reinit;
 pub mod list_projects;
+pub mod logout;
 //pub mod change_password;
 

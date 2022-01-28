@@ -18,7 +18,7 @@ pub async fn main(name: Option<String>, from_file: PathBuf) -> Result<(), Box<dy
         println!("Project already exists. To delete it, please run \"envwoman delete\"");
         return Ok(());
     }
-    let cfg: config::Config = confy::load("envwoman")?;
+    let cfg: config::Config = confy::load("envwoman", None)?;
     let project_name: String = if name.is_none() {
         let temp = env::current_dir()?.to_str().unwrap().to_string();
         let re = Regex::new(r".*/(.*)").unwrap();

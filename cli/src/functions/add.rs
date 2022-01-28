@@ -6,7 +6,7 @@ use crate::{config, ProjectFile, structs};
 use crate::functions::helpers::{get_branch, get_data_from_proj};
 
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let cfg: config::Config = confy::load("envwoman")?;
+    let cfg: config::Config = confy::load("envwoman", None)?;
     let mut config_file = env::current_dir()?;
     let repo: Option<Repository> = match Repository::open(&config_file) {
         Ok(repo) => Some(repo),

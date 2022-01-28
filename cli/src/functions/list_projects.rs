@@ -2,7 +2,7 @@ use crate::{config, structs};
 use prettytable::{Table, Row, Cell};
 
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let cfg: config::Config = confy::load("envwoman")?;
+    let cfg: config::Config = confy::load("envwoman", None)?;
     let res = reqwest::Client::new()
         .get("{api_url}/api/v1/projects/list".replace("{api_url}", &cfg.api_url))
         .header("mawoka-auth-header", &cfg.api_key)

@@ -9,15 +9,14 @@ edition = "2021"
 reqwest = { version = "0.11", features = ["json", "cookies"] }
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
-clap = { version ="3.0.10", features = ["derive"] }
+clap = { version = "3.0.10", features = ["derive"] }
 webbrowser = "0.5.5"
 serde = "1.0.133"
-confy = "0.4.0"
+confy = { git = "https://github.com/rust-cli/confy" }
 regex = "1"
 dialoguer = "0.9.0"
 serde_json = "1.0.75"
 keyring = "1"
-rpassword = "5.0.1"
 #orion = {veresion="0.17.0", features = ["safe_api"]}
 rand_core = { version = "0.6", features = ["std"] }
 git2 = "0.13.25"
@@ -29,7 +28,7 @@ hmac = "0.12.0"
 rand = "0.8.4"
 sha2 = "0.10.1"
 magic-crypt = "3.1.9"
-dotenv-parser = "0.1.3"
+#dotenv-parser = "0.1.3"
 indicatif = "0.17.0-rc.1"
 sentry = "0.24.1"
 color-eyre = "0.5"

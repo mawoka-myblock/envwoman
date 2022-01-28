@@ -9,7 +9,7 @@ pub async fn main(no_pull: bool) -> Result<(), Box<dyn std::error::Error>> {
     if !no_pull {
         pull(true).await?;
     }
-    let cfg: config::Config = confy::load("envwoman")?;
+    let cfg: config::Config = confy::load("envwoman", None)?;
     let mut config_file = env::current_dir()?;
     let repo: Option<Repository> = match Repository::open(&config_file) {
         Ok(repo) => Some(repo),
