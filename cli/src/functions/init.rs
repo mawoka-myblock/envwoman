@@ -1,14 +1,13 @@
-use std::{env, fs, io};
+use crate::structs::{CreateProject, ProjectFile};
+use crate::{config, encryption};
+use dialoguer::Confirm;
+use git2::{BranchType, Repository};
+use indicatif::ProgressBar;
+use regex::Regex;
 use std::fs::File;
 use std::io::{Read, Write};
 use std::path::PathBuf;
-use dialoguer::Confirm;
-use git2::{BranchType, Repository};
-use regex::Regex;
-use crate::{config, encryption};
-use crate::structs::{CreateProject, ProjectFile};
-use indicatif::ProgressBar;
-
+use std::{env, fs, io};
 
 pub async fn init(
     name: Option<String>,
@@ -20,7 +19,7 @@ pub async fn init(
     let mut current_path = env::current_dir()?;
     let repo: Option<Repository> = match Repository::open(&current_path) {
         Ok(repo) => Some(repo),
-        Err(_) => None
+        Err(_) => None,
     };
     current_path.push(".envwoman.json");
     if current_path.exists() {
@@ -44,20 +43,25 @@ pub async fn init(
             "Do you want to create a new project called \"{}\"".replace("{}", &project_name),
         )
         .interact()?
-    {} else {
+    {
+    } else {
         println!("If you want to choose a custom name, use envwoman init \"your_project_name\"");
         return Ok(());
     }
     let description_new: String;
     if description.is_some() {
         description_new = description.unwrap();
-    } else if Confirm::new().with_prompt("Do you want to add a description to your project?").interact()? {
+    } else if Confirm::new()
+        .with_prompt("Do you want to add a description to your project?")
+        .interact()?
+    {
         let mut buffer = String::new();
         let stdin = io::stdin();
         stdin.read_line(&mut buffer)?;
         description_new = buffer.trim().to_string();
-    } else { description_new = "".to_string(); }
-
+    } else {
+        description_new = "".to_string();
+    }
 
     let config_data: ProjectFile;
     let mut env_file = env::current_dir()?;
@@ -68,7 +72,13 @@ pub async fn init(
     let current_branch: String;
     if repo.is_some() {
         let re = Regex::new(r"refs/heads/(.*)").unwrap();
-        current_branch = re.captures(repo.as_ref().unwrap().head().unwrap().name().unwrap()).unwrap().get(1).unwrap().as_str().to_string();
+        current_branch = re
+            .captures(repo.as_ref().unwrap().head().unwrap().name().unwrap())
+            .unwrap()
+            .get(1)
+            .unwrap()
+            .as_str()
+            .to_string();
         for branch in repo.unwrap().branches(Some(BranchType::Local))? {
             branches.push(branch.unwrap().0.name().unwrap().map(String::from).unwrap());
         }
@@ -99,10 +109,10 @@ pub async fn init(
         // let parsed_env = parse_dotenv(&read_file).unwrap();
         // let env_data_vec: HashMap<&String, &String> = HashMap::from_iter(parsed_env.iter());
         // let env_data_str: serde_json::value::Value = serde_json::from_str(&format!("{:?}", env_data_vec))?;
-        current_env = Some(encryption::encrypt_string(&Some(read_file.to_string()).unwrap())?);
+        current_env = Some(encryption::encrypt_string(
+            &Some(read_file.to_string()).unwrap(),
+        )?);
     }
-
-
 
     let current_env_new: String = if current_env.is_none() {
         "".to_string()
@@ -123,16 +133,10 @@ pub async fn init(
     progress_bar.enable_steady_tick(80);
     let resp = reqwest::Client::new()
         // .get("https://envwoman.eu.org/api/v1/cli-login/token/{}"
-        .post(
-            "{api_url}/api/v1/projects/create"
-                .replace("{api_url}", &cfg.api_url),
-        )
+        .post("{api_url}/api/v1/projects/create".replace("{api_url}", &cfg.api_url))
         // .post("https://bin.muetsch.io/4tt5qi0")
         .body(serde_json::to_string(&data_to_send).unwrap())
-        .header(
-            "mawoka-auth-header",
-            &cfg.api_key,
-        )
+        .header("mawoka-auth-header", &cfg.api_key)
         .send()
         .await?;
     return if resp.status() == 200 {

@@ -1,7 +1,7 @@
-use std::io;
+use crate::config;
 use rand::distributions::Alphanumeric;
 use rand::Rng;
-use crate::config;
+use std::io;
 
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cfg: config::Config = confy::load("envwoman", None)?;
@@ -46,9 +46,11 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         spinner.finish();
         let body = resp.text().await?;
         let mut modified_cfg = cfg;
-        password = dialoguer::Password::new().with_prompt("Please enter an encryption-password for this project")
+        password = dialoguer::Password::new()
+            .with_prompt("Please enter an encryption-password for this project")
             .with_confirmation("Confirm password", "Passwords mismatching")
-            .interact().unwrap();
+            .interact()
+            .unwrap();
         modified_cfg.api_key = body;
         modified_cfg.salt = rand::thread_rng()
             .sample_iter(&Alphanumeric)
@@ -57,12 +59,10 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .collect();
         confy::store("envwoman", None, &modified_cfg)?;
         println!("Logged in successfully!");
-
     } else {
         println!("Unknown error");
         return Err("Unknown error".into());
     }
-
 
     let entry = keyring::Entry::new("envwoman", "envwoman");
     entry.set_password(&password)?;

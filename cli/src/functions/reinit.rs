@@ -1,16 +1,19 @@
-use std::{env};
-use std::fs::File;
-use std::path::PathBuf;
+use crate::functions::helpers::{get_branch, get_data_from_proj};
+use crate::{config, structs, ProjectFile};
 use git2::Repository;
 use regex::Regex;
-use crate::{config, ProjectFile, structs};
-use crate::functions::helpers::{get_branch, get_data_from_proj};
+use std::env;
+use std::fs::File;
+use std::path::PathBuf;
 
-pub async fn main(name: Option<String>, from_file: PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+pub async fn main(
+    name: Option<String>,
+    from_file: PathBuf,
+) -> Result<(), Box<dyn std::error::Error>> {
     let mut current_path = env::current_dir()?;
     let repo: Option<Repository> = match Repository::open(&current_path) {
         Ok(repo) => Some(repo),
-        Err(_) => None
+        Err(_) => None,
     };
 
     current_path.push(".envwoman.json");
@@ -31,9 +34,11 @@ pub async fn main(name: Option<String>, from_file: PathBuf) -> Result<(), Box<dy
     };
 
     let res = reqwest::Client::new()
-        .get("{api_url}/api/v1/projects/get/{project_name}"
-            .replace("{api_url}", &cfg.api_url)
-            .replace("{project_name}", &project_name))
+        .get(
+            "{api_url}/api/v1/projects/get/{project_name}"
+                .replace("{api_url}", &cfg.api_url)
+                .replace("{project_name}", &project_name),
+        )
         .header("mawoka-auth-header", &cfg.api_key)
         .send()
         .await?;
@@ -55,7 +60,8 @@ pub async fn main(name: Option<String>, from_file: PathBuf) -> Result<(), Box<dy
         let temp_res = get_branch(repo).await;
         let current_branch = temp_res.0;
         let branches = temp_res.1;
-        let data = get_data_from_proj(&from_file, project.data.clone(), current_branch.clone()).await;
+        let data =
+            get_data_from_proj(&from_file, project.data.clone(), current_branch.clone()).await;
         if data.is_none() {
             println!("No data for current branch");
             return Ok(());
@@ -73,8 +79,7 @@ pub async fn main(name: Option<String>, from_file: PathBuf) -> Result<(), Box<dy
         };
         let file = File::create(&current_path)?;
         serde_json::to_writer(file, &copy_of_project_file)?;
-            println!("Successfully updated envs");
-
+        println!("Successfully updated envs");
     } else {
         println!("Unknown error");
         return Err("Unknown error".into());

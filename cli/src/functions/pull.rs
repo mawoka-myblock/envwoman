@@ -1,17 +1,16 @@
-use std::{env};
-use std::fs::{File};
-use git2::{Repository};
-use crate::{config, structs};
 use crate::functions::helpers::{get_branch, get_data_from_proj};
 use crate::structs::*;
-
+use crate::{config, structs};
+use git2::Repository;
+use std::env;
+use std::fs::File;
 
 pub async fn pull(silent: bool) -> Result<(), Box<dyn std::error::Error>> {
     let cfg: config::Config = confy::load("envwoman", None)?;
     let mut config_file = env::current_dir()?;
     let repo: Option<Repository> = match Repository::open(&config_file) {
         Ok(repo) => Some(repo),
-        Err(_) => None
+        Err(_) => None,
     };
     config_file.push(".envwoman.json");
     let file = File::open(&config_file)?;
@@ -33,9 +32,11 @@ pub async fn pull(silent: bool) -> Result<(), Box<dyn std::error::Error>> {
     }
 
     let res = reqwest::Client::new()
-        .get("{api_url}/api/v1/projects/get/{project_name}"
-            .replace("{api_url}", &cfg.api_url)
-            .replace("{project_name}", &project_file.name))
+        .get(
+            "{api_url}/api/v1/projects/get/{project_name}"
+                .replace("{api_url}", &cfg.api_url)
+                .replace("{project_name}", &project_file.name),
+        )
         .header("mawoka-auth-header", &cfg.api_key)
         .send()
         .await?;
@@ -57,7 +58,8 @@ pub async fn pull(silent: bool) -> Result<(), Box<dyn std::error::Error>> {
         let temp_res = get_branch(repo).await;
         let current_branch = temp_res.0;
         let branches = temp_res.1;
-        let data = get_data_from_proj(&env_file, project.data.clone(), current_branch.clone()).await;
+        let data =
+            get_data_from_proj(&env_file, project.data.clone(), current_branch.clone()).await;
         if data.is_none() {
             println!("No data for current branch");
             return Ok(());

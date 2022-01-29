@@ -1,5 +1,5 @@
 use crate::{config, structs};
-use prettytable::{Table, Row, Cell};
+use prettytable::{Cell, Row, Table};
 
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cfg: config::Config = confy::load("envwoman", None)?;
@@ -17,7 +17,13 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let body = res.text().await?;
     let projects: structs::ListProjectResponse = serde_json::from_str(&body).unwrap();
     let mut table = Table::new();
-    table.add_row(row!["Name", "Description", "Created at", "Updated at", "Environments"]);
+    table.add_row(row![
+        "Name",
+        "Description",
+        "Created at",
+        "Updated at",
+        "Environments"
+    ]);
     for project in projects {
         table.add_row(Row::new(vec![
             Cell::new(&project.name),

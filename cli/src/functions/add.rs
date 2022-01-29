@@ -1,16 +1,16 @@
-use std::{env, fs};
+use crate::functions::helpers::{get_branch, get_data_from_proj};
+use crate::{config, structs, ProjectFile};
+use git2::Repository;
 use std::fs::{File, OpenOptions};
 use std::io::Write;
-use git2::{Repository};
-use crate::{config, ProjectFile, structs};
-use crate::functions::helpers::{get_branch, get_data_from_proj};
+use std::{env, fs};
 
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cfg: config::Config = confy::load("envwoman", None)?;
     let mut config_file = env::current_dir()?;
     let repo: Option<Repository> = match Repository::open(&config_file) {
         Ok(repo) => Some(repo),
-        Err(_) => None
+        Err(_) => None,
     };
     config_file.push(".envwoman.json");
     let file = File::open(&config_file)?;
@@ -27,9 +27,11 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     env_file.push(&project_file.file.unwrap());
 
     let res = reqwest::Client::new()
-        .get("{api_url}/api/v1/projects/get/{project_name}"
-            .replace("{api_url}", &cfg.api_url)
-            .replace("{project_name}", &project_file.name))
+        .get(
+            "{api_url}/api/v1/projects/get/{project_name}"
+                .replace("{api_url}", &cfg.api_url)
+                .replace("{project_name}", &project_file.name),
+        )
         .header("mawoka-auth-header", &cfg.api_key)
         .send()
         .await?;

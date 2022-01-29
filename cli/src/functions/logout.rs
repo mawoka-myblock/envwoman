@@ -1,11 +1,10 @@
-use crate::{config};
+use crate::config;
 use tokio::fs;
 
 async fn local_logout() {
     let project_dir = confy::get_configuration_file_path("envwoman", None).unwrap();
     fs::remove_file(project_dir).await.unwrap();
 }
-
 
 pub async fn main(local: bool) -> Result<(), Box<dyn std::error::Error>> {
     let cfg: config::Config = confy::load("envwoman", None)?;
@@ -14,7 +13,12 @@ pub async fn main(local: bool) -> Result<(), Box<dyn std::error::Error>> {
         println!("Successfully logged out!");
         Ok(())
     } else {
-        let input: String = dialoguer::Input::new().with_prompt("Do you want to log every session out? Please enter \"YES\" to continue").with_initial_text("No").default("No".into()).interact_text().unwrap();
+        let input: String = dialoguer::Input::new()
+            .with_prompt("Do you want to log every session out? Please enter \"YES\" to continue")
+            .with_initial_text("No")
+            .default("No".into())
+            .interact_text()
+            .unwrap();
         if input == "YES" {
             let res = reqwest::Client::new()
                 .post("{api_url}/api/v1/users/logout".replace("{api_url}", &cfg.api_url))

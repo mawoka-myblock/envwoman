@@ -1,9 +1,8 @@
-use std::path::{PathBuf};
+use std::path::PathBuf;
 
 mod functions;
 
 use clap::{self, Parser};
-
 
 pub mod config;
 pub mod encryption;
@@ -12,11 +11,10 @@ pub mod structs;
 use crate::structs::ProjectFile;
 use color_eyre::eyre::Result;
 
-
+//#[macro_use]
+// extern crate magic_crypt;
 #[macro_use]
-extern crate magic_crypt;
-#[macro_use] extern crate prettytable;
-
+extern crate prettytable;
 
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
@@ -69,8 +67,7 @@ pub enum Command {
         #[clap(short, long)]
         local: bool,
     },
-
-/*
+    /*
     ChangePassword {
         #[clap(short, long)]
         local: bool,
@@ -83,7 +80,6 @@ pub enum Command {
     Ok(())
 }*/
 
-
 async fn activate() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
@@ -93,11 +89,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cfg: config::Config = confy::load("envwoman", None)?;
     let _guard: sentry::ClientInitGuard;
     if cfg.sentry_enabled {
-        _guard = sentry::init(("https://b8a0e0246043409092a000cc3afbb6fb@o661934.ingest.sentry.io/6162750", sentry::ClientOptions {
-            release: sentry::release_name!(),
-            traces_sample_rate: 1.0,
-            ..Default::default()
-        }));
+        _guard = sentry::init((
+            "https://b8a0e0246043409092a000cc3afbb6fb@o661934.ingest.sentry.io/6162750",
+            sentry::ClientOptions {
+                release: sentry::release_name!(),
+                traces_sample_rate: 1.0,
+                ..Default::default()
+            },
+        ));
     }
     // if !cfg.trace_enabled {
     //     std::env::set_var("RUST_SPANTRACE", "0");
@@ -108,14 +107,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Command::Login => functions::login::main().await,
         Command::Pull => functions::pull::pull(false).await,
         Command::Push { no_pull } => functions::push::main(no_pull).await,
-        Command::Init { name, from_file, description } => functions::init::init(name, from_file, description).await,
-        Command::DeleteProject { force, name } => functions::delete_project::delete_project(force, name).await,
+        Command::Init {
+            name,
+            from_file,
+            description,
+        } => functions::init::init(name, from_file, description).await,
+        Command::DeleteProject { force, name } => {
+            functions::delete_project::delete_project(force, name).await
+        }
         Command::Activate => activate().await,
         Command::Add => functions::add::main().await,
-        Command::Reinit {name, file} => functions::reinit::main(name, file).await,
+        // Command::Add => encryption::test(),
+        Command::Reinit { name, file } => functions::reinit::main(name, file).await,
         Command::ListProjects => functions::list_projects::main().await,
         Command::Logout { local } => functions::logout::main(local).await,
         // Command::ChangePassword {local} => functions::change_password::main(local).await,
     };
-
 }
