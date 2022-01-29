@@ -116,8 +116,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             functions::delete_project::delete_project(force, name).await
         }
         Command::Activate => activate().await,
-        // Command::Add => functions::add::main().await,
-        Command::Add => encryption::test(),
+        Command::Add => functions::add::main().await,
+        // Command::Add => encryption::test(),
         Command::Reinit { name, file } => functions::reinit::main(name, file).await,
         Command::ListProjects => functions::list_projects::main().await,
         Command::Logout { local } => functions::logout::main(local).await,

@@ -5,7 +5,7 @@ use sha2::{Digest, Sha256};
 use aes_gcm::{Aes256Gcm, Key, Nonce};
 // Or `Aes128Gcm`
 use aes_gcm::aead::{Aead, NewAead};
-use rand::{thread_rng, Rng};
+use rand::{Rng};
 //use openssl::pkey::PKey;
 
 pub fn decrypt_string(to_decrypt: &str) -> Result<String, Box<dyn std::error::Error>> {
@@ -21,10 +21,15 @@ pub fn decrypt_string(to_decrypt: &str) -> Result<String, Box<dyn std::error::Er
     println!("{:?}", nonce_vec);
     let key = Key::from_slice(&*hash);
     let cipher = Aes256Gcm::new(key);
-    let nonce = Nonce::from_slice(&nonce_vec);
+    #[allow(unused_assignments)]
+    let mut test = [0; 12];
+    test = nonce_vec.try_into().unwrap();
+    let nonce = Nonce::from_slice(&test);
     println!("{:?}", decoded_shit[12..].to_vec());
+    let plaintext: Vec<u8> = cipher.decrypt(nonce, decoded_shit[12..].as_ref())
+        .expect("decryption failure!");
 
-    Ok("".into())
+    Ok(String::from_utf8(plaintext).unwrap())
 }
 
 pub fn encrypt_string(to_encrypt: &str) -> Result<String, Box<dyn std::error::Error>> {
@@ -43,21 +48,21 @@ pub fn encrypt_string(to_encrypt: &str) -> Result<String, Box<dyn std::error::Er
     let cipher = Aes256Gcm::new(key);
     let mut encrypted_shit = cipher.encrypt(nonce, to_encrypt.as_ref()).unwrap();
     println!("{:?}", encrypted_shit);
-    let plaintext: Vec<u8> = cipher.decrypt(nonce, encrypted_shit.as_ref())
-        .expect("decryption failure!");
+
     let mut res: Vec<u8> = Vec::new();
     res.append(&mut random_bytes.to_vec());
     res.append(&mut encrypted_shit);
     let res = Base64Url::encode_string(&res);
     Ok(res)
 }
-
+/*
 pub fn test() -> Result<(), Box<dyn std::error::Error>> {
-    let encrypted = encrypt_string("test")?;
+    let encrypted = encrypt_string("hgdfvxjbhnjgvdifx")?;
     println!("{:?}", encrypted);
-    decrypt_string(&encrypted)?;
+    println!("{}", decrypt_string(&encrypted)?);
     Ok(())
 }
+*/
 
 /*
 pub fn test() -> Result<(), Box<dyn std::error::Error>> {

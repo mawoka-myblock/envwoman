@@ -39,5 +39,4 @@ prettytable-rs = "0.8.0"
 
 # experimenting
 aes-gcm = {version = "0.9.4", features = ["alloc", "aes"]}
-fernet = "0.1.4"
 base64ct = {version = "1.3.3", features = ["alloc"]}
