@@ -3,7 +3,8 @@ use dialoguer::Confirm;
 use indicatif::ProgressBar;
 use reqwest::Response;
 use std::fs::File;
-use std::{env, fs};
+use tokio::fs;
+use std::{env};
 
 async fn delete_req(
     project_name: String,
@@ -77,7 +78,7 @@ pub async fn delete_project(
                 .with_prompt("Delete local file?")
                 .interact()?
         {
-            fs::remove_file(&current_path)?;
+            fs::remove_file(&current_path).await?;
         }
         return Ok(());
     }
@@ -110,7 +111,7 @@ pub async fn delete_project(
         println!("Deleted project successfully!");
 
         if name.as_ref().is_none() {
-            fs::remove_file(&current_path)?;
+            fs::remove_file(&current_path).await?;
         }
     } else {
         println!("The project doesn't exist on the server. Shall I delete the local file?");
@@ -118,7 +119,7 @@ pub async fn delete_project(
             .with_prompt("Delete local file?")
             .interact()?
         {
-            fs::remove_file(current_path)?;
+            fs::remove_file(current_path).await?;
         }
     }
     Ok(())

@@ -3,7 +3,8 @@ use crate::{config, structs, ProjectFile};
 use git2::Repository;
 use std::fs::{File, OpenOptions};
 use std::io::Write;
-use std::{env, fs};
+use std::{env};
+use tokio::fs;
 
 pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cfg: config::Config = confy::load("envwoman", None)?;
@@ -62,7 +63,7 @@ pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
         // let mut env_file = env::current_dir()?;
         // env_file.push(&project_file.file.unwrap());
         File::create(&env_file)?;
-        fs::remove_file(&env_file)?;
+        fs::remove_file(&env_file).await?;
         File::create(&env_file)?;
         let mut file = OpenOptions::new()
             .write(true)

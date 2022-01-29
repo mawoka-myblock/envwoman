@@ -2,6 +2,9 @@
 Your open source `.env`-manager!
 
 
+## Description
+Envwoman is an application, to sync your [`.env`](https://en.wikipedia.org/wiki/Environment_variable)-files across multiple machines. The main goal is to make Envwoman secure and trustworthy, so everything is open-source and the data will never in plain-text on the server. Encryption happens client-sided via [fernet](https://github.com/fernet/spec/).
+
 
 
 ## Self-Hosting
