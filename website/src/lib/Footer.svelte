@@ -1,6 +1,6 @@
 <footer class="p-10 footer bg-base-200 text-base-content footer-center">
     <div class="grid grid-flow-col gap-4">
-        <a class="link-hover" rel="nofollow" href="/register">Sig up</a>
+        <a class="link-hover" rel="nofollow" href="/register">Sign up</a>
         <a class="link-hover" rel="nofollow" href="/contact">Contact</a>
         <a href="https://tasks.mawoka.eu.org/share/MeVpuBCleKDvOarUaqnMOlYSdrICNipaxcAGHlvD/auth" rel="nofollow" target="_blank" class="link-hover">Roadmap</a>
     </div>
