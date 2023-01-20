@@ -19,7 +19,7 @@ serde_json = "1.0.75"
 keyring = "1"
 #orion = {veresion="0.17.0", features = ["safe_api"]}
 rand_core = { version = "0.6", features = ["std"] }
-git2 = "0.13.25"
+git2 = "0.16.1"
 
 # Encryption-shit
 aes = "0.7.5"
